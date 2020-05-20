@@ -1,0 +1,26 @@
+*** Variables ***
+${ds_rp_traderreport}    Reports/Trader
+${ds_rp_traderreportadminview}    Reports/Trader/Admin
+${ds_rp_bettypemonthlyperf}    Reports/BettypeMonthlyPerformance
+${ds_rp_perfsummary}    Reports/PerformanceSummary
+${ds_rp_tradermonthlyperf}    Reports/TraderMonthlyReport
+${ds_rp_perfdetailleague}    Reports/PerformanceDetail/LeaguePerformance
+${ds_rp_perfdetailtrader}    Reports/PerformanceDetail/TraderPerformance
+${ds_rp_perfdetailgrade}    Reports/PerformanceDetail/GradePerformance
+${ds_rp_perfdetailteam}    Reports/PerformanceDetail/TeamPerformance
+${ds_rp_perfdetailbettype}    Reports/PerformanceDetail/BetTypePerformance
+${ds_rp_perfdetailjuiceleftoverleague}    Reports/NewPerformanceDetail/LeaguePerformance
+${ds_rp_perfdetailjuiceleftovertrader}    Reports/NewPerformanceDetail/TraderPerformance
+${ds_rp_perfdetailjuiceleftovergrade}    Reports/NewPerformanceDetail/GradePerformance
+${ds_rp_perfdetailjuiceleftoverteam}    Reports/NewPerformanceDetail/TeamPerformance
+${ds_rp_perfdetailjuiceleftoverbettype}    Reports/NewPerformanceDetail/BetTypePerformance
+${ds_rp_perfdetailactualratejuiceleftoverleague}    Reports/ActualRatePerformanceDetail/LeaguePerformance
+${ds_rp_perfdetailactualratejuiceleftovertrader}    Reports/ActualRatePerformanceDetail/TraderPerformance
+${ds_rp_perfdetailactualratejuiceleftovergrade}    Reports/ActualRatePerformanceDetail/GradePerformance
+${ds_rp_perfdetailactualratejuiceleftoverteam}    Reports/ActualRatePerformanceDetail/TeamPerformance
+${ds_rp_perfdetailactualratejuiceleftoverbettype}    Reports/ActualRatePerformanceDetail/BetTypePerformance
+${ds_rp_multiplematchesperftrader}    Reports/MultipleMatchesPerformance/TraderPerformance
+${ds_rp_automationtradingperfbettype}    Reports/AutomationTradingPerformance/BetTypePerformance
+${ds_rp_automationtradingperfperiod}    Reports/AutomationTradingPerformance/PeriodPerformance
+${ds_rp_automationtradingperfevent}    Reports/AutomationTradingPerformance/EventPerformance
+${ds_rp_automationtradingperfmodel}    Reports/AutomationTradingPerformance/ModelPerformance

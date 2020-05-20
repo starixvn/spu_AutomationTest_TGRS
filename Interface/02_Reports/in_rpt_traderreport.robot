@@ -1,0 +1,13 @@
+*** Variables ***
+${in_rp_td_txttradername}    //*[@id='divReportFilterForm']//*[@id='txtUserName']
+${in_rp_td_noofmatches}    //*[@id='lblMatches']
+${in_rp_td_btnmonth}    //*[@id='chkMonth']/following-sibling::label[@for='chkMonth']
+${in_rp_td_btnday}    //*[@id='chkDay']/following-sibling::label[@for='chkDay']
+${in_rp_td_titlebettypeperf}    //*[@id='reporttile' and contains(normalize-space(text()),'Bet Type Performance')]
+${in_rp_td_titleleagueperf}    //*[@id='reporttile' and contains(normalize-space(text()),'League Performance')]
+${in_rp_td_bettypeperf_grandtotal}    //*[@id='divBettypePerformanceGrid']//tr/th[contains(@class,'free-grid-td-0')]/div[text()='Grand Total']
+${in_rp_td_leagueperf_grandtotal}    //*[@id='divLeaguesPerformanceGrid']//tr/th[contains(@class,'free-grid-td-0')]/div[text()='Grand Total']
+${in_rp_td_leagueperf_lnknoofmatch}    //*[@id='divLeaguesPerformanceGrid']//tr[@data-row-index='0']/td/div/span[contains(@class,'match-link link')]
+${in_rp_td_leagueperf_matchperf_grandtotal}    //*[@id='divMatchesPerformanceGrid']//tr/th[contains(@class,'free-grid-td-0')]/div[text()='Grand Total']
+${in_rp_td_leagueperf_matchperf_lnkmatch}    //*[@id='divMatchesPerformanceGrid']//tr[@data-row-index='0']/td/div/span[contains(@class,'bettype-detail-link link')]
+${in_rp_td_leagueperf_matchperf_bettypeperf_grandtotal}    //*[@id='divBettypesPerformanceGrid']//tr/th[contains(@class,'free-grid-td-0')]/div[text()='Grand Total']
