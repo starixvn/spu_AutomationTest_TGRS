@@ -26,7 +26,7 @@ login
     Wait Until Element Is Visible    ${in_hp_divwelcome}    30
     ${divwelcome}    Get text    ${in_hp_divwelcome}
     Should Be Equal As Strings    ${ds_hp_divwelcome}    ${divwelcome}
-    Comment    Compare text 'Welcome ${username}'
+    Comment    Compare text "Welcome ${username}"
     wait loading
 
 logout
@@ -46,10 +46,10 @@ select date
     Wait Until Element Is Visible    ${in_rp_mf_dt_cboYear}/option[@value=${year}]    5
     wait loading
     Click Element    ${in_rp_mf_dt_cboYear}/option[@value=${year}]
-    Wait Until Element Is Visible    ${in_rp_mf_dt_cboMonth}/option[text()='${month}']    5
-    Click Element    ${in_rp_mf_dt_cboMonth}/option[text()='${month}']
+    Wait Until Element Is Visible    ${in_rp_mf_dt_cboMonth}/option[text()="${month}"]    5
+    Click Element    ${in_rp_mf_dt_cboMonth}/option[text()="${month}"]
     wait loading
-    ${mon}    Get Value    ${in_rp_mf_dt_cboMonth}/option[text()='${month}']
+    ${mon}    Get Value    ${in_rp_mf_dt_cboMonth}/option[text()="${month}"]
     # Select day
     Wait Until Element Is Visible    ${in_rp_mf_dt_tblDate}//td[@data-month=${mon}]/a[text()=${day}]    5
     Click Element    ${in_rp_mf_dt_tblDate}//td[@data-month=${mon}]/a[text()=${day}]
@@ -64,26 +64,26 @@ select month
     wait loading
     ${tmp_in_rp_mf_mo_fromyear}    Replace String    ${in_rp_mf_mo_fromyear}    [rp_mf_mo_fromyear]    ${year}    -1
     ${tmp_in_rp_mf_mo_toyear}    Replace String    ${in_rp_mf_mo_toyear}    [rp_mf_mo_toyear]    ${year}    -1
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selectfrommonth}'    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_fromyear}
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selecttomonth}'    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_toyear}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selectfrommonth}"    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_fromyear}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selecttomonth}"    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_toyear}
     ${fromyear_selected}    Selenium2Library.Get Element Attribute    ${tmp_in_rp_mf_mo_fromyear}    attribute=class
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selectfrommonth}' and '${fromyear_selected}'!='selected'    Click Element    ${tmp_in_rp_mf_mo_fromyear}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selectfrommonth}" and "${fromyear_selected}"!="selected"    Click Element    ${tmp_in_rp_mf_mo_fromyear}
     ${toyear_selected}    Selenium2Library.Get Element Attribute    ${tmp_in_rp_mf_mo_toyear}    attribute=class
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selecttomonth}' and '${toyear_selected}'!='selected'    Click Element    ${tmp_in_rp_mf_mo_toyear}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selecttomonth}" and "${toyear_selected}"!="selected"    Click Element    ${tmp_in_rp_mf_mo_toyear}
     wait loading
     # Convert month from abbrev into full text
-    ${month}    Set Variable If    '${month}'=='Jan'    January    '${month}'=='Feb'    February    '${month}'=='Mar'    March    '${month}'=='Apr'    April    '${month}'=='May'    May    '${month}'=='Jun'    June    '${month}'=='Jul'    July    '${month}'=='Aug'
-    ...    August    '${month}'=='Sep'    September    '${month}'=='Oct'    October    '${month}'=='Nov'    November    '${month}'=='Dec'    December
+    ${month}    Set Variable If    "${month}"=="Jan"    January    "${month}"=="Feb"    February    "${month}"=="Mar"    March    "${month}"=="Apr"    April    "${month}"=="May"    May    "${month}"=="Jun"    June    "${month}"=="Jul"    July    "${month}"=="Aug"
+    ...    August    "${month}"=="Sep"    September    "${month}"=="Oct"    October    "${month}"=="Nov"    November    "${month}"=="Dec"    December
     Comment    ${tmp_in_rp_mf_mo_frommonth}    Replace String    ${in_rp_mf_mo_frommonth}    [rp_mf_mo_fromyear]    ${year}    -1
     Comment    ${tmp_in_rp_mf_mo_tomonth}    Replace String    ${in_rp_mf_mo_tomonth}    [rp_mf_mo_toyear]    ${year}    -1
     Comment    ${tmp_in_rp_mf_mo_frommonth}    Replace String    ${tmp_in_rp_mf_mo_frommonth}    [rp_mf_mo_frommonth]    ${month}    -1
     Comment    ${tmp_in_rp_mf_mo_tomonth}    Replace String    ${tmp_in_rp_mf_mo_tomonth}    [rp_mf_mo_tomonth]    ${month}    -1
     ${tmp_in_rp_mf_mo_frommonth}    Evaluate    "${in_rp_mf_mo_frommonth}".replace("[rp_mf_mo_fromyear]", "${year}").replace("[rp_mf_mo_frommonth]", "${month}")    #python
     ${tmp_in_rp_mf_mo_tomonth}    Evaluate    "${in_rp_mf_mo_tomonth}".replace("[rp_mf_mo_toyear]", "${year}").replace("[rp_mf_mo_tomonth]", "${month}")    #python
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selectfrommonth}'    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_frommonth}
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selecttomonth}'    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_tomonth}
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selectfrommonth}'    Click Element    ${tmp_in_rp_mf_mo_frommonth}
-    Run Keyword If    '${dtpMonth}'=='${in_rp_mf_mo_selecttomonth}'    Click Element    ${tmp_in_rp_mf_mo_tomonth}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selectfrommonth}"    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_frommonth}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selecttomonth}"    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_tomonth}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selectfrommonth}"    Click Element    ${tmp_in_rp_mf_mo_frommonth}
+    Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selecttomonth}"    Click Element    ${tmp_in_rp_mf_mo_tomonth}
     wait loading
 
 click control
@@ -92,6 +92,7 @@ click control
     wait loading
     Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${control}    ${waitcontrol}
     Run Keyword And Continue On Failure    Click Element    ${control}
+    wait loading
 
 wait loading
     [Arguments]    ${timeout}=45
@@ -104,7 +105,7 @@ go to url
     [Arguments]    ${domain}    ${env_path}    ${menu_path}
     sleep    1
     ${domain}    Set Variable    ${ds_lg_url}
-    ${env_path}    Set Variable If    '${ds_lg_env}' == 'pro'    NAPTGR    Main
+    ${env_path}    Set Variable If    "${ds_lg_env}" == "pro"    NAPTGR    Main
     ${menu_path}    Set Variable    ${menu_path}
     Go To    ${domain}/${env_path}/${menu_path}
     sleep    1
@@ -130,3 +131,17 @@ split day month year
     ${day}    Get From List    ${array}    1
     ${year}    Get From List    ${array}    2
     [Return]    ${month}    ${day}    ${year}
+
+select combobox single selection
+    [Arguments]    ${cboselection}    ${selectiondata}    ${selection}
+    [Documentation]    ${cboselection}: combox selection
+    ...    ${selectiondata}: naming data of the combox selection
+    ...    ${selection}: data set selection
+    Wait Until Element Is Visible    ${cboselection}    30
+    Click Element    ${cboselection}
+    wait loading
+    Wait Until Element Is Visible    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]
+    ${aaa}    Is Element Visible    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]/preceding-sibling::input
+    ${tmp_attribute_selectiondata}    Does Attribute Exist    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]/preceding-sibling::input    aria-selected
+    Run Keyword Unless    ${tmp_attribute_selectiondata}    Click Element    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]
+    wait loading

@@ -8,7 +8,8 @@ Resource          ../Dataset/ds_configuration.robot
 Resource          ../Dataset/ds_reports.robot
 Resource          ../Interface/in_homepage.robot
 Resource          ../Interface/02_Reports/in_rpt_main_filter.robot
-Resource          ../Interface/02_Reports/in_rpt_traderreport.robot
+Resource          ../Interface/02_Reports/in_rpt_trader-traderadminview.robot
+Resource          ../Interface/02_Reports/in_rpt_bettypemontlyperf.robot
 
 *** Variables ***
 
@@ -105,6 +106,11 @@ TC_02_Reports_BetTypeMonthlyPerformance
     wait loading
     go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_bettypemonthlyperf}
     # Select Filter
+    wait loading
+    select combobox single selection    ${in_rp_bm_cboyear}    ${in_rp_mf_yeardata}    ${ds_rp_mf_bm_year}
+    select combobox single selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype1}
+    select combobox single selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns}
+    click control    ${in_rp_mf_btngenerate}
     wait loading
 
 TC_05_Reports_PerformanceDetail

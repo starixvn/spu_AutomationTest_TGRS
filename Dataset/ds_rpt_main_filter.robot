@@ -10,3 +10,6 @@ ${ds_rp_mf_mo_frommonth}    Jan
 ${ds_rp_mf_mo_toyear}    2020
 ${ds_rp_mf_mo_tomonth}    May
 ${ds_rp_mf_td_tradername}    CLGMARCO
+${ds_rp_mf_bm_year}    2020
+${ds_rp_mf_bm_bettype1}    Winner
+${ds_rp_mf_bm_columns}    February

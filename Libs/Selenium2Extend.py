@@ -21,14 +21,14 @@ from selenium.common.exceptions import WebDriverException
 '''
 
 def _version(strict=True): return float(ver[:ver.find('.', ver.find('.') + 1)]) if strict else ver
-def _driver(): return BuiltIn().get_library_instance('Selenium2Library')._current_browser()
+def _driver(): return BuiltIn().get_library_instance('Selenium2Library').driver
 def _cache(): return BuiltIn().get_library_instance('Selenium2Library')._cache
 def _action(): return ActionChains(_driver())
 def _timeOut(s): return 0 if int(s) < 0 else int(s)
 def _wait(s): return WebDriverWait(_driver(), _timeOut(s))
 
 def _findElem(locator, firstOnly, required):
-        return BuiltIn().get_library_instance('Selenium2Library').find(locator=locator, first_only=True)
+        return BuiltIn().get_library_instance('Selenium2Library').find_element(locator=locator)
 
 def _wait_until_no_error(timeout, wait_func, *args):
         timeout = robot.utils.timestr_to_secs(timeout) if timeout is not None else 0
@@ -214,6 +214,15 @@ def is_element_selected(locator, timeOut=0):
         try: return _wait(timeOut).until(EC.element_located_to_be_selected(Element(locator)._get()))
         except WebDriverException: return False
 
+
+def does_attribute_exist(locator, attribute):
+        '''
+                Check whether the attribute exists in element or not
+        '''
+
+        element = _findElem(locator, True, False)
+        jsScript = "return arguments[0].hasAttribute('" + attribute + "');"
+        return _driver().execute_script(jsScript, element)
 
 def is_text_present_in_element(locator, text, timeOut=0):
         '''
