@@ -101,8 +101,6 @@ def open_browser_in_chrome(url, download_location, alias=None, isHeadless=False)
         '''
                 Run the browser (google chrome) possible headless mode (no UI)     
         '''
-        if isinstance(isHeadless, basestring):
-                isHeadless = True if isHeadless.lower() in ("yes", "true", "t", "1") else False
         wd = BuiltIn().get_library_instance('Selenium2Library')
 
         prefs = {'download.default_directory': os.path.abspath(download_location),

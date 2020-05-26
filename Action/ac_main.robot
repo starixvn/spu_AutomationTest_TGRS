@@ -9,8 +9,37 @@ Resource          ../Dataset/ds_hompage.robot
 Resource          ../Interface/in_login.robot
 Resource          ../Interface/02_Reports/in_rpt_main_filter.robot
 Resource          ../Interface/in_homepage.robot
+Library           OperatingSystem
 
 *** Keywords ***
+build ff profile
+    [Arguments]    ${target_path}
+    [Documentation]    *Specification:* Change the firefox download location into a new path
+    Log    BUILD FIREFOX PROFILE...
+    Comment    === Declare variables ===
+    ${ac_ff_profile_path}    Set Variable    D:\\Working\\Auto\\AutomationTest_TGRS\\Libs\\robot_ff_profile\\
+    ${ac_ff_profile_template_file_name}    Set Variable    prefs.txt
+    ${ac_ff_profile_mime_cf_file_name}    Set Variable    mimeTypes.rdf
+    ${ac_template_download_path_str}    Set Variable    ReplaceDownloadDirPathHere
+    ${ac_ff_profile_file_name}    Set Variable    prefs.js
+    ${ac_ff_profile_rdf_file}    Set Variable    localstore.rdf
+    Comment    === Action steps ===
+    ${ac_new_ff_path_str}    Normalize Path    ${target_path}
+    ${ac_new_ff_path_str}    Replace String    ${ac_new_ff_path_str}    \\    \\\\\
+    Remove File    ${target_path}${ac_ff_profile_rdf_file}
+    Remove File    ${target_path}${ac_ff_profile_file_name}
+    Remove File    ${target_path}${ac_ff_profile_mime_cf_file_name}
+    Wait Until Removed    ${target_path}${ac_ff_profile_rdf_file}
+    Wait Until Removed    ${target_path}${ac_ff_profile_file_name}
+    Wait Until Removed    ${target_path}${ac_ff_profile_mime_cf_file_name}
+    ${ac_ff_prefs_content}    Get File    ${ac_ff_profile_path}${ac_ff_profile_template_file_name}    ## Logic flow: Load the firefox profile setting content from a template file .txt then build a new firefox profile setting file with expected target download location
+    ${ac_ff_prefs_content}    Replace String    ${ac_ff_prefs_content}    ${ac_template_download_path_str}    ${ac_new_ff_path_str}
+    Append To File    ${target_path}${ac_ff_profile_file_name}    ${ac_ff_prefs_content}
+    Wait Until Created    ${target_path}${ac_ff_profile_file_name}    10
+    Copy File    ${ac_ff_profile_path}${ac_ff_profile_rdf_file}    ${target_path}${ac_ff_profile_rdf_file}
+    Copy File    ${ac_ff_profile_path}${ac_ff_profile_mime_cf_file_name}    ${target_path}${ac_ff_profile_mime_cf_file_name}
+    Wait Until Created    ${target_path}${ac_ff_profile_rdf_file}    10
+
 login
     [Arguments]    ${username}    ${password}
     [Documentation]    Type 'username' and 'password' into the textboxes then click Login button
@@ -133,15 +162,29 @@ split day month year
     [Return]    ${month}    ${day}    ${year}
 
 select combobox single selection
-    [Arguments]    ${cboselection}    ${selectiondata}    ${selection}
+    [Arguments]    ${cboselection}    ${cboselectiondata}    ${sglselection}
     [Documentation]    ${cboselection}: combox selection
     ...    ${selectiondata}: naming data of the combox selection
     ...    ${selection}: data set selection
     Wait Until Element Is Visible    ${cboselection}    30
     Click Element    ${cboselection}
     wait loading
-    Wait Until Element Is Visible    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]
-    ${aaa}    Is Element Visible    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]/preceding-sibling::input
-    ${tmp_attribute_selectiondata}    Does Attribute Exist    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]/preceding-sibling::input    aria-selected
-    Run Keyword Unless    ${tmp_attribute_selectiondata}    Click Element    ${selectiondata}/following-sibling::span[contains(text(),"${selection}")]
+    Wait Until Element Is Visible    ${cboselectiondata}/following-sibling::span[normalize-space(text())="${sglselection}"]
+    ${tmp_attribute_cboselectiondata}    Does Attribute Exist    ${cboselectiondata}/following-sibling::span[normalize-space(text())="${sglselection}"]/preceding-sibling::input    aria-selected
+    Run Keyword Unless    ${tmp_attribute_cboselectiondata}    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${sglselection}"]
+    wait loading
+
+select combobox checkbox selection
+    [Arguments]    ${cbcselection}    ${cbcselectiondata}    ${chkselection}
+    [Documentation]    ${cboselection}: combox selection
+    ...    ${selectiondata}: naming data of the combox selection
+    ...    ${selection}: data set selection
+    Wait Until Element Is Visible    ${cbcselection}    30
+    ${tmp_cbcselection}    Replace String    ${cbcselection}    *//span[2]    button    -1
+    ${tmp_cbcselection_att}    Selenium2Library.Get Element Attribute    ${tmp_cbcselection}    attribute=class
+    Run Keyword Unless    "${tmp_cbcselection_att}"=="ui-multiselect ui-widget ui-state-default ui-state-hover ui-state-active"    Click Element    ${cbcselection}
+    wait loading
+    Wait Until Element Is Visible    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
+    ${tmp_attribute_cbcselectiondata}    Does Attribute Exist    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]/preceding-sibling::input    aria-selected
+    Run Keyword Unless    ${tmp_attribute_cbcselectiondata}    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
     wait loading

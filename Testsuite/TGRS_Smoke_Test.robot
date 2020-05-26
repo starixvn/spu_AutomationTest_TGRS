@@ -20,8 +20,11 @@ TC_00_Login_System
     ...    - 20200520@John.Ngo: Create new [RedmineId: #134230]
     ...
     ...    Login TGRS System
+    ${ff_profile_dir}    Set Variable    D:\\Working\\Auto\\AutomationTest_TGRS\\Auto_Reports\\
+    build ff profile    ${ff_profile_dir}
     Set Selenium Speed    0
-    Open Browser    ${EMPTY}    ${ds_lg_browser}
+    #Open Browser    ${EMPTY}    ${ds_lg_browser}    ff_profile_dir=${ff_profile_dir}
+    Open Browser In Chrome    about:blank    ${ff_profile_dir}    chrome    ${False}
     go to url    ${ds_lg_url}    ${ds_lg_env}    ${EMPTY}
     Comment    Maximize Browser Window
     # Login
@@ -108,9 +111,23 @@ TC_02_Reports_BetTypeMonthlyPerformance
     # Select Filter
     wait loading
     select combobox single selection    ${in_rp_bm_cboyear}    ${in_rp_mf_yeardata}    ${ds_rp_mf_bm_year}
-    select combobox single selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype1}
-    select combobox single selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns}
+    # Click check all bettype
+    Comment    click control    ${in_rp_bm_cbcbettype}
+    Comment    click control    ${in_rp_bm_cbcbettype_checkall}
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_1sthdp}
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_hdp}
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_1stou}
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_ou}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_1sthalfyear}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_2ndhalfyear}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_fullyear}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_jan}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_dec}
     click control    ${in_rp_mf_btngenerate}
+    wait loading
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
+    ${rp_bm_btnexporttoexcel}    Is Element Visible    ${in_rp_bm_btnexporttoexcel}    0
+    Run Keyword If    ${rp_bm_btnexporttoexcel}    click control    ${in_rp_bm_btnexporttoexcel}
     wait loading
 
 TC_05_Reports_PerformanceDetail
