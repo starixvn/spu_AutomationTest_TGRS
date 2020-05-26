@@ -10,6 +10,7 @@ Resource          ../Interface/in_homepage.robot
 Resource          ../Interface/02_Reports/in_rpt_main_filter.robot
 Resource          ../Interface/02_Reports/in_rpt_trader-traderadminview.robot
 Resource          ../Interface/02_Reports/in_rpt_bettypemontlyperf.robot
+Resource          ../Interface/02_Reports/in_rpt_perfsummary.robot
 
 *** Variables ***
 
@@ -20,7 +21,7 @@ TC_00_Login_System
     ...    - 20200520@John.Ngo: Create new [RedmineId: #134230]
     ...
     ...    Login TGRS System
-    ${ff_profile_dir}    Set Variable    D:\\Working\\Auto\\AutomationTest_TGRS\\Auto_Reports\\
+    ${ff_profile_dir}    Set Variable    Auto_Reports\\
     build ff profile    ${ff_profile_dir}
     Set Selenium Speed    0
     #Open Browser    ${EMPTY}    ${ds_lg_browser}    ff_profile_dir=${ff_profile_dir}
@@ -81,7 +82,7 @@ TC_01_Reports_Trader-TraderAdminView
     click control    ${in_rp_mf_btnSearch}
     wait loading
     click control    ${in_rp_td_btnmonth}
-    # Check Data
+    # Check element exist
     ${rp_td_noofmatches}    Get Text    ${in_rp_td_noofmatches}
     Should Be True    ${rp_td_noofmatches}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_td_bettypeperf_grandtotal}
@@ -129,6 +130,41 @@ TC_02_Reports_BetTypeMonthlyPerformance
     ${rp_bm_btnexporttoexcel}    Is Element Visible    ${in_rp_bm_btnexporttoexcel}    0
     Run Keyword If    ${rp_bm_btnexporttoexcel}    click control    ${in_rp_bm_btnexporttoexcel}
     wait loading
+    ${filename}    Get Time    year,month,day    UTC - 4 hour
+    ${filename}    Evaluate    "".join(${filename})
+    ${filename}    Set Variable    Bettype_Monthly_Performance_${filename}.xlsx
+    Remove Files    Auto_Reports\\${filename}
+    Wait Until Keyword Succeeds    2min    3s    File Should Exist    Auto_Reports\\${filename}
+
+TC_03_Reports_PerformanceSummary
+    [Documentation]    Created by: 20200526@John.Ngo
+    ...    Revisions:
+    ...    - 20200526@John.Ngo: Create new [RedmineId: #134230]
+    ...
+    ...    Performance Summary Report:
+    ...    1. Navigate to report
+    ...    2. Select date and click Generate button
+    ...    3. Check title 'Team Performance', 'Top 5 winning leagues', 'Top 5 losing leagues' and 'Bet Type Performance'
+    # Navigate to Report
+    wait loading
+    go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_perfsummary}
+    # Select Filter
+    wait loading
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromyear}    ${ds_rp_mf_dt_frommonth}    ${ds_rp_mf_dt_fromday}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_toyear}    ${ds_rp_mf_dt_tomonth}    ${ds_rp_mf_dt_today}
+    wait loading
+    click control    ${in_rp_mf_btnSearch}
+    # Check element exist
+    ${rp_ps_noofmatches}    Get Text    ${in_rp_ps_noofmatches}
+    Should Be True    ${rp_ps_noofmatches}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_lnktoptrader}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_lnkbottomtrader}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titleteamperf}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titletop5winningleagues}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titletop5losingleagues}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titlebettypeperf}
+    click control    ${in_rp_ps_lnktoptrader}
+    click control    ${in_rp_ps_lnkbottomtrader}
 
 TC_05_Reports_PerformanceDetail
     [Documentation]    Created by: 20200520@John.Ngo

@@ -17,7 +17,7 @@ build ff profile
     [Documentation]    *Specification:* Change the firefox download location into a new path
     Log    BUILD FIREFOX PROFILE...
     Comment    === Declare variables ===
-    ${ac_ff_profile_path}    Set Variable    D:\\Working\\Auto\\AutomationTest_TGRS\\Libs\\robot_ff_profile\\
+    ${ac_ff_profile_path}    Set Variable    Libs\\robot_ff_profile\\
     ${ac_ff_profile_template_file_name}    Set Variable    prefs.txt
     ${ac_ff_profile_mime_cf_file_name}    Set Variable    mimeTypes.rdf
     ${ac_template_download_path_str}    Set Variable    ReplaceDownloadDirPathHere
@@ -188,3 +188,12 @@ select combobox checkbox selection
     ${tmp_attribute_cbcselectiondata}    Does Attribute Exist    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]/preceding-sibling::input    aria-selected
     Run Keyword Unless    ${tmp_attribute_cbcselectiondata}    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
     wait loading
+
+wait for export to excel file
+    [Arguments]    ${filepath}
+    FOR    ${ac_index}    IN RANGE    0    90
+    ${ac_existfile}    Run Keyword And Return Status    File Should Exist    ${filepath}
+    ${ac_saving_ff}    Run Keyword And Return Status    File Should Exist    ${filepath}.part
+    ${ac_saving_gc}    Run Keyword And Return Status    File Should Exist    ${filepath}.crdownload
+    Run Keyword If    "${ac_existfile}"!="True" or "${ac_saving_ff}"=='True" or "${ac_saving_gc}"=='True"    sleep    2s
+    Exit For Loop If    "${ac_index}"==90 or ("${ac_existfile}"=="True" and "${ac_saving_ff}"!="True") or ("${ac_existfile}"=="True" and "${ac_saving_gc}"!="True")

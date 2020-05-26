@@ -1,0 +1,8 @@
+*** Variables ***
+${in_rp_ps_noofmatches}    //*[@id='lblMatches']
+${in_rp_ps_lnktoptrader}    //*[@id='divTopTrader']
+${in_rp_ps_lnkbottomtrader}    //*[@id='divBottomTrader']
+${in_rp_ps_titleteamperf}    //*[@id='reporttile' and contains(normalize-space(text()),'Team Performance')]
+${in_rp_ps_titletop5winningleagues}    //*[@id='reporttile' and contains(normalize-space(text()),'Top 5 winning leagues')]
+${in_rp_ps_titletop5losingleagues}    //*[@id='reporttile' and contains(normalize-space(text()),'Top 5 losing leagues')]
+${in_rp_ps_titlebettypeperf}    //*[@id='reporttile' and contains(normalize-space(text()),'Bet Type Performance')]
