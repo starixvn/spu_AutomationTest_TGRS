@@ -166,6 +166,7 @@ select combobox single selection
     [Documentation]    ${cboselection}: combox selection
     ...    ${selectiondata}: naming data of the combox selection
     ...    ${selection}: data set selection
+    wait loading
     Wait Until Element Is Visible    ${cboselection}    30
     Click Element    ${cboselection}
     wait loading
@@ -175,25 +176,39 @@ select combobox single selection
     wait loading
 
 select combobox checkbox selection
-    [Arguments]    ${cbcselection}    ${cbcselectiondata}    ${chkselection}
+    [Arguments]    ${cbcselection}    ${cbcselectiondata}    ${chkselection}    ${ischeck}=1
     [Documentation]    ${cboselection}: combox selection
     ...    ${selectiondata}: naming data of the combox selection
     ...    ${selection}: data set selection
+    ...    ${ischeck}: 0 - uncheck checkbox, 1 - check checkbox
+    wait loading
     Wait Until Element Is Visible    ${cbcselection}    30
     ${tmp_cbcselection}    Replace String    ${cbcselection}    *//span[2]    button    -1
     ${tmp_cbcselection_att}    Selenium2Library.Get Element Attribute    ${tmp_cbcselection}    attribute=class
-    Run Keyword Unless    "${tmp_cbcselection_att}"=="ui-multiselect ui-widget ui-state-default ui-state-hover ui-state-active"    Click Element    ${cbcselection}
+    Run Keyword Unless    "${tmp_cbcselection_att}"=="ui-multiselect ui-widget ui-state-default ui-state-hover ui-state-active" or "${tmp_cbcselection_att}"=="ui-multiselect ui-widget ui-state-default ui-state-active"    Click Element    ${cbcselection}
     wait loading
+    ${ischeck}    Set Variable If    "${ischeck}"=="1"    true    false
     Wait Until Element Is Visible    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
-    ${tmp_attribute_cbcselectiondata}    Does Attribute Exist    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]/preceding-sibling::input    aria-selected
-    Run Keyword Unless    ${tmp_attribute_cbcselectiondata}    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
+    ${tmp_attribute_cbcselectiondata}    Selenium2Library.Get Element Attribute    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]/preceding-sibling::input    aria-selected
+    Run Keyword Unless    "${tmp_attribute_cbcselectiondata}"=="${ischeck}"    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
+    Log    Check/Uncheck="${ischeck}" for "${chkselection}"
     wait loading
 
-wait for export to excel file
-    [Arguments]    ${filepath}
-    FOR    ${ac_index}    IN RANGE    0    90
-    ${ac_existfile}    Run Keyword And Return Status    File Should Exist    ${filepath}
-    ${ac_saving_ff}    Run Keyword And Return Status    File Should Exist    ${filepath}.part
-    ${ac_saving_gc}    Run Keyword And Return Status    File Should Exist    ${filepath}.crdownload
-    Run Keyword If    "${ac_existfile}"!="True" or "${ac_saving_ff}"=='True" or "${ac_saving_gc}"=='True"    sleep    2s
-    Exit For Loop If    "${ac_index}"==90 or ("${ac_existfile}"=="True" and "${ac_saving_ff}"!="True") or ("${ac_existfile}"=="True" and "${ac_saving_gc}"!="True")
+check function export to excel file
+    [Arguments]    ${locator}    ${filename}
+    [Documentation]    ${locator}: locator of export to excel icon
+    ...    ${filename} : filename of excel (Bettype_Monthly_Performance)
+    ...    ex: Bettype_Monthly_Performance_[year,month,day].xlsx
+    ...    1. Click export to excel file
+    ...    2. Check exist excel file
+    # Click export to excel
+    wait loading
+    ${tmp_btnexporttoexcel}    Is Element Visible    ${locator}    0
+    Run Keyword If    ${tmp_btnexporttoexcel}    click control    ${locator}
+    # Check exist excel file
+    wait loading
+    ${datefile}    Get Time    year,month,day    UTC - 4 hour
+    ${datefile}    Evaluate    "".join(${datefile})
+    ${fullfilename}    Set Variable    ${filename}_${datefile}.xlsx
+    Remove Files    Auto_Reports\\${fullfilename}
+    Wait Until Keyword Succeeds    2min    3s    File Should Exist    Auto_Reports\\${fullfilename}

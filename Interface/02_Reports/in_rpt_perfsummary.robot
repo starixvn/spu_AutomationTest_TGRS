@@ -6,3 +6,5 @@ ${in_rp_ps_titleteamperf}    //*[@id='reporttile' and contains(normalize-space(t
 ${in_rp_ps_titletop5winningleagues}    //*[@id='reporttile' and contains(normalize-space(text()),'Top 5 winning leagues')]
 ${in_rp_ps_titletop5losingleagues}    //*[@id='reporttile' and contains(normalize-space(text()),'Top 5 losing leagues')]
 ${in_rp_ps_titlebettypeperf}    //*[@id='reporttile' and contains(normalize-space(text()),'Bet Type Performance')]
+${in_rp_ps_titletoptrader}    //div[@class='title']//following-sibling::span[contains(text(),'Top trader performance')]
+${in_rp_ps_titlebottomtrader}    //div[@class='title']//following-sibling::span[contains(text(),'Bottom trader performance')]

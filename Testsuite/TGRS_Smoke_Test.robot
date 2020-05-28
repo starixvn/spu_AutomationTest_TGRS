@@ -62,10 +62,11 @@ TC_01_Reports_Trader-TraderAdminView
     wait loading
     click control    ${in_rp_mf_btnSearch}
     wait loading
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     click control    ${in_rp_td_btnday}
     # Test
-    ${aa}    Set Variable    12/24/2020
-    split day month year    ${aa}
+    ${tmp_date}    Set Variable    12/24/2020
+    split day month year    ${tmp_date}
     # Test
     # Navigate to Report
     wait loading
@@ -84,15 +85,21 @@ TC_01_Reports_Trader-TraderAdminView
     click control    ${in_rp_td_btnmonth}
     # Check element exist
     ${rp_td_noofmatches}    Get Text    ${in_rp_td_noofmatches}
-    Should Be True    ${rp_td_noofmatches}
+    Should Be True    '${rp_td_noofmatches}'
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_td_bettypeperf_grandtotal}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_td_leagueperf_grandtotal}
     wait loading
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
     click control    ${in_rp_td_leagueperf_lnknoofmatch}
     wait loading
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_td_leagueperf_matchperf_grandtotal}
     wait loading
     click control    ${in_rp_td_leagueperf_matchperf_lnkmatch}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_td_leagueperf_matchperf_bettypeperf_grandtotal}
 
 TC_02_Reports_BetTypeMonthlyPerformance
@@ -112,29 +119,33 @@ TC_02_Reports_BetTypeMonthlyPerformance
     # Select Filter
     wait loading
     select combobox single selection    ${in_rp_bm_cboyear}    ${in_rp_mf_yeardata}    ${ds_rp_mf_bm_year}
-    # Click check all bettype
-    Comment    click control    ${in_rp_bm_cbcbettype}
-    Comment    click control    ${in_rp_bm_cbcbettype_checkall}
+    # Click uncheck all bettype
+    click control    ${in_rp_bm_cbcbettype}
+    click control    ${in_rp_bm_cbcbettype_uncheckall}
     select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_1sthdp}
     select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_hdp}
     select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_1stou}
     select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_ou}
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_1sthalfyear}
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_2ndhalfyear}
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_fullyear}
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_jan}
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_dec}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_1sthalfyear}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_2ndhalfyear}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_fullyear}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_jan}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_dec}    1
     click control    ${in_rp_mf_btngenerate}
-    wait loading
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
-    ${rp_bm_btnexporttoexcel}    Is Element Visible    ${in_rp_bm_btnexporttoexcel}    0
-    Run Keyword If    ${rp_bm_btnexporttoexcel}    click control    ${in_rp_bm_btnexporttoexcel}
     wait loading
-    ${filename}    Get Time    year,month,day    UTC - 4 hour
-    ${filename}    Evaluate    "".join(${filename})
-    ${filename}    Set Variable    Bettype_Monthly_Performance_${filename}.xlsx
-    Remove Files    Auto_Reports\\${filename}
-    Wait Until Keyword Succeeds    2min    3s    File Should Exist    Auto_Reports\\${filename}
+    # Click check all bettype
+    click control    ${in_rp_bm_cbcbettype}
+    click control    ${in_rp_bm_cbcbettype_checkall}
+    click control    ${in_rp_mf_btngenerate}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_1sthalfyear}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_2ndhalfyear}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_fullyear}    1
+    wait loading
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
+    check function export to excel file    ${in_rp_bm_btnexporttoexcel}    Bettype_Monthly_Performance
 
 TC_03_Reports_PerformanceSummary
     [Documentation]    Created by: 20200526@John.Ngo
@@ -156,15 +167,27 @@ TC_03_Reports_PerformanceSummary
     click control    ${in_rp_mf_btnSearch}
     # Check element exist
     ${rp_ps_noofmatches}    Get Text    ${in_rp_ps_noofmatches}
-    Should Be True    ${rp_ps_noofmatches}
+    Should Be True    '${rp_ps_noofmatches}'
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_lnktoptrader}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_lnkbottomtrader}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titleteamperf}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titletop5winningleagues}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titletop5losingleagues}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titlebettypeperf}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
     click control    ${in_rp_ps_lnktoptrader}
+    ${windows}    Get Window Titles
+    Select Window    ${windows[1]}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titletoptrader}
+    Close Window
+    Select Window    ${windows[0]}
     click control    ${in_rp_ps_lnkbottomtrader}
+    ${windows}    Get Window Titles
+    Select Window    ${windows[1]}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titlebottomtrader}
+    Close Window
+    Select Window    ${windows[0]}
 
 TC_05_Reports_PerformanceDetail
     [Documentation]    Created by: 20200520@John.Ngo
