@@ -7,7 +7,7 @@ Library           ../Libs/ExcelExtendLibrary.py
 Resource          ../Dataset/ds_login.robot
 Resource          ../Dataset/ds_hompage.robot
 Resource          ../Interface/in_login.robot
-Resource          ../Interface/02_Reports/in_rpt_main_filter.robot
+Resource          ../Interface/02_Reports/in_rpt_main_filter_general.robot
 Resource          ../Interface/in_homepage.robot
 Library           OperatingSystem
 
@@ -68,26 +68,36 @@ logout
     Wait Until Element Is Visible    ${in_lg_btnlogin}
 
 select date
-    [Arguments]    ${dtpDate}    ${year}    ${month}    ${day}
+    [Arguments]    ${dtpDate}    ${date}
+    [Documentation]    ${dtpDate}: locator
+    ...    ${date}: mm-dd-yyyy
+    ...    Ex: select date ${in_rp_mf_dt_selectfromdate} 02/03/2019
     wait loading
+    # Spit & return ${month} ${day} ${year}
+    ${month}    ${day}    ${year}    split month day year    ${date}
     Wait Until Element Is Visible    ${dtpDate}    30
     Click Element    ${dtpDate}
-    Wait Until Element Is Visible    ${in_rp_mf_dt_cboYear}/option[@value=${year}]    5
+    Wait Until Element Is Visible    ${in_rp_mf_dt_cboYear}/option[@value="${year}"]    5
     wait loading
-    Click Element    ${in_rp_mf_dt_cboYear}/option[@value=${year}]
+    Click Element    ${in_rp_mf_dt_cboYear}/option[@value="${year}"]
     Wait Until Element Is Visible    ${in_rp_mf_dt_cboMonth}/option[text()="${month}"]    5
     Click Element    ${in_rp_mf_dt_cboMonth}/option[text()="${month}"]
     wait loading
     ${mon}    Get Value    ${in_rp_mf_dt_cboMonth}/option[text()="${month}"]
     # Select day
-    Wait Until Element Is Visible    ${in_rp_mf_dt_tblDate}//td[@data-month=${mon}]/a[text()=${day}]    5
-    Click Element    ${in_rp_mf_dt_tblDate}//td[@data-month=${mon}]/a[text()=${day}]
+    Wait Until Element Is Visible    ${in_rp_mf_dt_tblDate}//td[@data-month="${mon}"]/a[text()="${day}"]    5
+    Click Element    ${in_rp_mf_dt_tblDate}//td[@data-month="${mon}"]/a[text()="${day}"]
     Wait Until Element Is Not Visible    ${in_rp_mf_dt_tblDate}    5
     wait loading
 
 select month
-    [Arguments]    ${dtpMonth}    ${year}    ${month}
+    [Arguments]    ${dtpMonth}    ${date}
+    [Documentation]    ${dtpMonth}: locator
+    ...    ${date}: mm-dd-yyyy (mm-01-yyyy)
+    ...    Ex: select month ${in_rp_mf_mo_selectfromdate} 02/01/2019
     wait loading
+    # Spit & return ${month} ${day} ${year}
+    ${month}    ${day}    ${year}    split month day year    ${date}
     Wait Until Element Is Visible    ${dtpMonth}    30
     Click Element    ${dtpMonth}
     wait loading
@@ -103,10 +113,6 @@ select month
     # Convert month from abbrev into full text
     ${month}    Set Variable If    "${month}"=="Jan"    January    "${month}"=="Feb"    February    "${month}"=="Mar"    March    "${month}"=="Apr"    April    "${month}"=="May"    May    "${month}"=="Jun"    June    "${month}"=="Jul"    July    "${month}"=="Aug"
     ...    August    "${month}"=="Sep"    September    "${month}"=="Oct"    October    "${month}"=="Nov"    November    "${month}"=="Dec"    December
-    Comment    ${tmp_in_rp_mf_mo_frommonth}    Replace String    ${in_rp_mf_mo_frommonth}    [rp_mf_mo_fromyear]    ${year}    -1
-    Comment    ${tmp_in_rp_mf_mo_tomonth}    Replace String    ${in_rp_mf_mo_tomonth}    [rp_mf_mo_toyear]    ${year}    -1
-    Comment    ${tmp_in_rp_mf_mo_frommonth}    Replace String    ${tmp_in_rp_mf_mo_frommonth}    [rp_mf_mo_frommonth]    ${month}    -1
-    Comment    ${tmp_in_rp_mf_mo_tomonth}    Replace String    ${tmp_in_rp_mf_mo_tomonth}    [rp_mf_mo_tomonth]    ${month}    -1
     ${tmp_in_rp_mf_mo_frommonth}    Evaluate    "${in_rp_mf_mo_frommonth}".replace("[rp_mf_mo_fromyear]", "${year}").replace("[rp_mf_mo_frommonth]", "${month}")    #python
     ${tmp_in_rp_mf_mo_tomonth}    Evaluate    "${in_rp_mf_mo_tomonth}".replace("[rp_mf_mo_toyear]", "${year}").replace("[rp_mf_mo_tomonth]", "${month}")    #python
     Run Keyword If    "${dtpMonth}"=="${in_rp_mf_mo_selectfrommonth}"    Wait Until Element Is Visible    ${tmp_in_rp_mf_mo_frommonth}
@@ -153,12 +159,20 @@ compare two number
     ${result}    Run Keyword And Return Status    Should Be Equal As Numbers    ${number1}    ${number2}
     [Return]    ${result}
 
-split day month year
+split month day year
     [Arguments]    ${input}
+    Comment    Log    'action split day month year'
+    Comment    Set Log Level    NONE
     ${array}    Evaluate    '${input}'.split('/')
     ${month}    Get From List    ${array}    0
-    ${day}    Get From List    ${array}    1
+    ${month}    Set Variable If    "${month}"=="01" or "${month}"=="1"    Jan    "${month}"=="02" or "${month}"=="2"    Feb    "${month}"=="03" or "${month}"=="3"    Mar    "${month}"=="04" or "${month}"=="4"    Apr    "${month}"=="05" or "${month}"=="5"    May    "${month}"=="06" or "${month}"=="6"    Jun    "${month}"=="07" or "${month}"=="7"    Jul    "${month}"=="08" or "${month}"=="8"
+    ...    Aug    "${month}"=="09" or "${month}"=="9"    Sep    "${month}"=="10"    Oct    "${month}"=="11"    Nov    "${month}"=="12"    Dec
+    Comment    ${month}    Set Variable If    "${month}"=="01" or "${month}"=="1"    January    "${month}"=="02" or "${month}"=="2"    February    "${month}"=="03" or "${month}"=="3"    March    "${month}"=="04" or "${month}"=="4"    April    "${month}"=="05" or "${month}"=="5"    May    "${month}"=="06" or "${month}"=="6"    June    "${month}"=="07" or "${month}"=="7"    July
+    ...    "${month}"=="08" or "${month}"=="8"    August    "${month}"=="09" or "${month}"=="9"    September    "${month}"=="10"    October    "${month}"=="11"    November    "${month}"=="12"    December
+    ${tmp_day}    Get From List    ${array}    1
+    ${day}    Evaluate    str(int('${tmp_day}'))
     ${year}    Get From List    ${array}    2
+    Comment    Set Log Level    INFO
     [Return]    ${month}    ${day}    ${year}
 
 select combobox single selection
@@ -196,7 +210,7 @@ select combobox checkbox selection
 
 check function export to excel file
     [Arguments]    ${locator}    ${filename}
-    [Documentation]    ${locator}: locator of export to excel icon
+    [Documentation]    ${locator}: location of export to excel icon
     ...    ${filename} : filename of excel (Bettype_Monthly_Performance)
     ...    ex: Bettype_Monthly_Performance_[year,month,day].xlsx
     ...    1. Click export to excel file
@@ -212,3 +226,12 @@ check function export to excel file
     ${fullfilename}    Set Variable    ${filename}_${datefile}.xlsx
     Remove Files    Auto_Reports\\${fullfilename}
     Wait Until Keyword Succeeds    2min    3s    File Should Exist    Auto_Reports\\${fullfilename}
+
+input text into textbox
+    [Arguments]    ${locator}    ${text}
+    [Documentation]    ${locator}: location of textbox
+    ...    ${text}: text input into textbox
+    # Wait to check exist element
+    Wait Until Element Is Visible    ${locator}
+    # Input text
+    Input Text    ${locator}    ${text}

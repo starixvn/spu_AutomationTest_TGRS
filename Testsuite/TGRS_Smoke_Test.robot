@@ -7,7 +7,7 @@ Resource          ../Dataset/ds_hompage.robot
 Resource          ../Dataset/ds_configuration.robot
 Resource          ../Dataset/ds_reports.robot
 Resource          ../Interface/in_homepage.robot
-Resource          ../Interface/02_Reports/in_rpt_main_filter.robot
+Resource          ../Interface/02_Reports/in_rpt_main_filter_general.robot
 Resource          ../Interface/02_Reports/in_rpt_trader-traderadminview.robot
 Resource          ../Interface/02_Reports/in_rpt_bettypemontlyperf.robot
 Resource          ../Interface/02_Reports/in_rpt_perfsummary.robot
@@ -57,17 +57,13 @@ TC_01_Reports_Trader-TraderAdminView
     click control    ${in_rp_mf_periodtype}
     click control    ${in_rp_mf_periodtype_month}
     wait loading
-    select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromyear}    ${ds_rp_mf_mo_frommonth}
-    select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_toyear}    ${ds_rp_mf_mo_tomonth}
+    select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromdate}
+    select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_todate}
     wait loading
     click control    ${in_rp_mf_btnSearch}
     wait loading
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     click control    ${in_rp_td_btnday}
-    # Test
-    ${tmp_date}    Set Variable    12/24/2020
-    split day month year    ${tmp_date}
-    # Test
     # Navigate to Report
     wait loading
     go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_traderreportadminview}
@@ -77,8 +73,8 @@ TC_01_Reports_Trader-TraderAdminView
     click control    ${in_rp_mf_periodtype}
     click control    ${in_rp_mf_periodtype_date}
     wait loading
-    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromyear}    ${ds_rp_mf_dt_frommonth}    ${ds_rp_mf_dt_fromday}
-    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_toyear}    ${ds_rp_mf_dt_tomonth}    ${ds_rp_mf_dt_today}
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromdate}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_todate}
     wait loading
     click control    ${in_rp_mf_btnSearch}
     wait loading
@@ -118,19 +114,29 @@ TC_02_Reports_BetTypeMonthlyPerformance
     go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_bettypemonthlyperf}
     # Select Filter
     wait loading
-    select combobox single selection    ${in_rp_bm_cboyear}    ${in_rp_mf_yeardata}    ${ds_rp_mf_bm_year}
+    select combobox single selection    ${in_rp_bm_cboyear}    ${in_rp_bm_yeardata}    ${ds_rp_mf_year}
     # Click uncheck all bettype
     click control    ${in_rp_bm_cbcbettype}
     click control    ${in_rp_bm_cbcbettype_uncheckall}
-    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_1sthdp}
-    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_hdp}
-    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_1stou}
-    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_mf_bettypedata}    ${ds_rp_mf_bm_bettype_ou}
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_1sthalfyear}    0
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_2ndhalfyear}    0
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_fullyear}    0
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_jan}    1
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_dec}    1
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_bm_bettypedata}    ${ds_rp_mf_bettype_1sthdp}
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_bm_bettypedata}    ${ds_rp_mf_bettype_hdp}
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_bm_bettypedata}    ${ds_rp_mf_bettype_1stou}
+    select combobox checkbox selection    ${in_rp_bm_cbcbettype}    ${in_rp_bm_bettypedata}    ${ds_rp_mf_bettype_ou}
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_1sthalfyear}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_2ndhalfyear}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_fullyear}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_jan}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_feb}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_mar}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_apr}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_may}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_jun}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_jul}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_aug}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_sep}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_oct}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_nov}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_dec}    1
     click control    ${in_rp_mf_btngenerate}
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
@@ -139,9 +145,21 @@ TC_02_Reports_BetTypeMonthlyPerformance
     click control    ${in_rp_bm_cbcbettype}
     click control    ${in_rp_bm_cbcbettype_checkall}
     click control    ${in_rp_mf_btngenerate}
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_1sthalfyear}    1
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_2ndhalfyear}    1
-    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_mf_columnsdata}    ${ds_rp_mf_bm_columns_fullyear}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_1sthalfyear}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_2ndhalfyear}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_fullyear}    1
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_jan}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_feb}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_mar}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_apr}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_may}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_jun}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_jul}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_aug}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_sep}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_oct}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_nov}    0
+    select combobox checkbox selection    ${in_rp_bm_cbccolumns}    ${in_rp_bm_columnsdata}    ${ds_rp_mf_columns_dec}    0
     wait loading
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
@@ -161,8 +179,8 @@ TC_03_Reports_PerformanceSummary
     go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_perfsummary}
     # Select Filter
     wait loading
-    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromyear}    ${ds_rp_mf_dt_frommonth}    ${ds_rp_mf_dt_fromday}
-    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_toyear}    ${ds_rp_mf_dt_tomonth}    ${ds_rp_mf_dt_today}
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromdate}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_todate}
     wait loading
     click control    ${in_rp_mf_btnSearch}
     # Check element exist
@@ -180,14 +198,33 @@ TC_03_Reports_PerformanceSummary
     ${windows}    Get Window Titles
     Select Window    ${windows[1]}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titletoptrader}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
     Close Window
     Select Window    ${windows[0]}
     click control    ${in_rp_ps_lnkbottomtrader}
     ${windows}    Get Window Titles
     Select Window    ${windows[1]}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${in_rp_ps_titlebottomtrader}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_bm_nodata}
     Close Window
     Select Window    ${windows[0]}
+
+TC_04_Reports_TraderMonthlyPerformance
+    [Documentation]    Created by: 20200526@John.Ngo
+    ...    Revisions:
+    ...    - 20200526@John.Ngo: Create new [RedmineId: #134230]
+    ...
+    ...    Performance Summary Report:
+    ...    1. Navigate to report
+    ...    2. Select date and click Generate button
+    ...    3. Check title 'Team Performance', 'Top 5 winning leagues', 'Top 5 losing leagues' and 'Bet Type Performance'
+    # Navigate to Report
+    wait loading
+    go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_tradermonthlyperf}
+    # Select Filter
+    wait loading
 
 TC_05_Reports_PerformanceDetail
     [Documentation]    Created by: 20200520@John.Ngo
@@ -199,8 +236,8 @@ TC_05_Reports_PerformanceDetail
     go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_perfdetailbettype}
     # Select Filter
     wait loading
-    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromyear}    ${ds_rp_mf_dt_frommonth}    ${ds_rp_mf_dt_fromday}
-    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_toyear}    ${ds_rp_mf_dt_tomonth}    ${ds_rp_mf_dt_today}
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromdate}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_todate}
     wait loading
     click control    ${in_rp_mf_btngenerate}
     # Check Data
