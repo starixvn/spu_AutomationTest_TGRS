@@ -1,8 +1,8 @@
 *** Variables ***
-${ds_rp_mf_dt_fromdate}    05/02/2020    # mm/dd/yyyy
+${ds_rp_mf_dt_fromdate}    05/01/2020    # mm/dd/yyyy
 ${ds_rp_mf_dt_todate}    05/15/2020    # mm/dd/yyyy
-${ds_rp_mf_mo_fromdate}    02/01/2020    # mm/01/yyyy
-${ds_rp_mf_mo_todate}    05/01/2020    # mm/01/yyyy
+${ds_rp_mf_mo_fromdate}    03/01/2020    # mm/01/yyyy
+${ds_rp_mf_mo_todate}    05/31/2020    # mm/31/yyyy
 ${ds_rp_mf_td_tradername}    CLGMARCO
 ${ds_rp_mf_year}    2020
 ${ds_rp_mf_bettype_hdp}    HDP
@@ -12,6 +12,7 @@ ${ds_rp_mf_bettype_1stou}    1st O/U
 ${ds_rp_mf_columns_1sthalfyear}    1st Half Year
 ${ds_rp_mf_columns_2ndhalfyear}    2nd Half Year
 ${ds_rp_mf_columns_fullyear}    Full Year
+${ds_rp_mf_columns_previousyear}    Previous Year
 ${ds_rp_mf_columns_jan}    January
 ${ds_rp_mf_columns_feb}    February
 ${ds_rp_mf_columns_mar}    March
@@ -24,3 +25,22 @@ ${ds_rp_mf_columns_sep}    September
 ${ds_rp_mf_columns_oct}    October
 ${ds_rp_mf_columns_nov}    November
 ${ds_rp_mf_columns_dec}    December
+${ds_rp_mf_tm_product_all}    All
+${ds_rp_mf_tm_product_hdp}    HDP
+${ds_rp_mf_tm_shift_all}    All
+${ds_rp_mf_tm_shift_afternoonS2}    Afternoon S.2
+${ds_rp_mf_tm_grade_all}    All
+${ds_rp_mf_tm_grade_2}    2
+${ds_rp_mf_tm_league}    CLUB FRIENDLY
+${ds_rp_mf_tm_trader}    CLGALIKIN
+${ds_rp_mf_pd_market_all}    All
+${ds_rp_mf_pd_market_live}    Live
+${ds_rp_mf_pd_minimumturnover}    500000
+${ds_rp_mf_pd_minimumwinloss}    200000
+${ds_rp_mf_pd_marginfrom}    1
+${ds_rp_mf_pd_marginto}    50
+${ds_rp_mf_pd_league}    CLUB FRIENDLY
+${ds_rp_mf_pd_trader}    CLGALIKIN
+${ds_rp_mf_pd_team_clg}    *CLG
+${ds_rp_mf_pd_team_supportteam}    Support Team
+${ds_rp_mf_pd_team_nonliveteam}    NonLiveTeam

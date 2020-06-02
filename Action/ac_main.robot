@@ -93,7 +93,7 @@ select date
 select month
     [Arguments]    ${dtpMonth}    ${date}
     [Documentation]    ${dtpMonth}: locator
-    ...    ${date}: mm-dd-yyyy (mm-01-yyyy)
+    ...    ${date}: mm/dd/yyyy (from: mm/01/yyyy - to: mm/31/yyyy)
     ...    Ex: select month ${in_rp_mf_mo_selectfromdate} 02/01/2019
     wait loading
     # Spit & return ${month} ${day} ${year}
@@ -153,12 +153,6 @@ convert string to number
     ${number}    Convert To Number    ${number}
     [Return]    ${number}
 
-compare two number
-    [Arguments]    ${number1}    ${number2}
-    [Documentation]    This action is used to compare two number {$number 1}|{$number 2}. It will show a message if they are not equal.
-    ${result}    Run Keyword And Return Status    Should Be Equal As Numbers    ${number1}    ${number2}
-    [Return]    ${result}
-
 split month day year
     [Arguments]    ${input}
     Comment    Log    'action split day month year'
@@ -184,31 +178,34 @@ select combobox single selection
     Wait Until Element Is Visible    ${cboselection}    30
     Click Element    ${cboselection}
     wait loading
-    Wait Until Element Is Visible    ${cboselectiondata}/following-sibling::span[normalize-space(text())="${sglselection}"]
-    ${tmp_attribute_cboselectiondata}    Does Attribute Exist    ${cboselectiondata}/following-sibling::span[normalize-space(text())="${sglselection}"]/preceding-sibling::input    aria-selected
-    Run Keyword Unless    ${tmp_attribute_cboselectiondata}    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${sglselection}"]
+    Wait Until Element Is Visible    ${cboselectiondata}//following-sibling::*[normalize-space(text())="${sglselection}"]
+    ${att_cboselectiondata_aria-selected}    Does Attribute Exist    ${cboselectiondata}//following-sibling::*[normalize-space(text())="${sglselection}"]/..    aria-selected
+    ${att_cbcselectiondata_class}    Selenium2Library.Get Element Attribute    ${cboselectiondata}//following-sibling::*[normalize-space(text())="${sglselection}"]/..    attribute=class
+    Run Keyword Unless    ${att_cboselectiondata_aria-selected} and "${att_cbcselectiondata_class}"=="ui-corner-all ui-state-active ui-state-hover"    Click Element    ${cboselectiondata}//following-sibling::*[normalize-space(text())="${sglselection}"]
     wait loading
 
 select combobox checkbox selection
-    [Arguments]    ${cbcselection}    ${cbcselectiondata}    ${chkselection}    ${ischeck}=1
+    [Arguments]    ${cbcselection}    ${cbcselectiondata}    ${chkselection}    ${ischeck}=1    ${isclose}=0
     [Documentation]    ${cboselection}: combox selection
     ...    ${selectiondata}: naming data of the combox selection
     ...    ${selection}: data set selection
     ...    ${ischeck}: 0 - uncheck checkbox, 1 - check checkbox
+    ...    ${isclose}: 0 - don't close data dropdown list, 1 - close data dropdown list
     wait loading
     Wait Until Element Is Visible    ${cbcselection}    30
     ${tmp_cbcselection}    Replace String    ${cbcselection}    *//span[2]    button    -1
-    ${tmp_cbcselection_att}    Selenium2Library.Get Element Attribute    ${tmp_cbcselection}    attribute=class
-    Run Keyword Unless    "${tmp_cbcselection_att}"=="ui-multiselect ui-widget ui-state-default ui-state-hover ui-state-active" or "${tmp_cbcselection_att}"=="ui-multiselect ui-widget ui-state-default ui-state-active"    Click Element    ${cbcselection}
+    ${att_cbcselection_class}    Selenium2Library.Get Element Attribute    ${tmp_cbcselection}    attribute=class
+    Run Keyword Unless    "${att_cbcselection_class}"=="ui-multiselect ui-widget ui-state-default ui-state-hover ui-state-active" or "${att_cbcselection_class}"=="ui-multiselect ui-widget ui-state-default ui-state-active"    Click Element    ${cbcselection}
     wait loading
     ${ischeck}    Set Variable If    "${ischeck}"=="1"    true    false
     Wait Until Element Is Visible    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
-    ${tmp_attribute_cbcselectiondata}    Selenium2Library.Get Element Attribute    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]/preceding-sibling::input    aria-selected
-    Run Keyword Unless    "${tmp_attribute_cbcselectiondata}"=="${ischeck}"    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
+    ${att_cbcselectiondata_aria-selected}    Selenium2Library.Get Element Attribute    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]/preceding-sibling::input    aria-selected
+    Run Keyword Unless    "${att_cbcselectiondata_aria-selected}"=="${ischeck}"    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
     Log    Check/Uncheck="${ischeck}" for "${chkselection}"
+    Run Keyword If    "${isclose}"=="1"    Click Element    ${cbcselection}
     wait loading
 
-check function export to excel file
+check export to excel filename_getdate
     [Arguments]    ${locator}    ${filename}
     [Documentation]    ${locator}: location of export to excel icon
     ...    ${filename} : filename of excel (Bettype_Monthly_Performance)
@@ -227,11 +224,29 @@ check function export to excel file
     Remove Files    Auto_Reports\\${fullfilename}
     Wait Until Keyword Succeeds    2min    3s    File Should Exist    Auto_Reports\\${fullfilename}
 
-input text into textbox
-    [Arguments]    ${locator}    ${text}
-    [Documentation]    ${locator}: location of textbox
-    ...    ${text}: text input into textbox
-    # Wait to check exist element
-    Wait Until Element Is Visible    ${locator}
-    # Input text
-    Input Text    ${locator}    ${text}
+check export to excel filename_fromdate_todate
+    [Arguments]    ${locator}    ${filename}    ${fromdate}    ${todate}
+    [Documentation]    ${locator}: location of export to excel icon
+    ...    ${filename} : filename of excel (Bettype_Monthly_Performance)
+    ...    ex: Bettype_Monthly_Performance_[year,month,day].xlsx
+    ...    1. Click export to excel file
+    ...    2. Check exist excel file
+    # Click export to excel
+    wait loading
+    ${tmp_btnexporttoexcel}    Is Element Visible    ${locator}    0
+    Run Keyword If    ${tmp_btnexporttoexcel}    click control    ${locator}
+    # Check exist excel file
+    wait loading
+    ${fromdate}    Evaluate    '${fromdate}'.split('/')
+    ${year}    Get From List    ${fromdate}    2
+    ${month}    Get From List    ${fromdate}    0
+    ${day}    Get From List    ${fromdate}    1
+    ${fromdate}    Evaluate    ${year}${month}${day}
+    ${todate}    Evaluate    '${todate}'.split('/')
+    ${year}    Get From List    ${todate}    2
+    ${month}    Get From List    ${todate}    0
+    ${day}    Get From List    ${todate}    1
+    ${todate}    Evaluate    ${year}${month}${day}
+    ${fullfilename}    Set Variable    ${filename}_${fromdate}_${todate}.xls
+    Remove Files    Auto_Reports\\${fullfilename}
+    Wait Until Keyword Succeeds    2min    3s    File Should Exist    Auto_Reports\\${fullfilename}
