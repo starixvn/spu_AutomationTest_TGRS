@@ -44,3 +44,20 @@ ${ds_rp_mf_pd_trader}    CLGALIKIN
 ${ds_rp_mf_pd_team_clg}    *CLG
 ${ds_rp_mf_pd_team_supportteam}    Support Team
 ${ds_rp_mf_pd_team_nonliveteam}    NonLiveTeam
+${ds_rp_mf_mmp_grade_1}    1
+${ds_rp_mf_mmp_grade_3}    3
+${ds_rp_mf_mmp_grade_5}    5
+${ds_rp_mf_mmp_grade_7}    7
+${ds_rp_mf_mmp_grade_9}    9
+${ds_rp_mf_mmp_grade_200}    200
+${ds_rp_mf_mmp_grade_255}    255
+${ds_rp_mf_mmp_team_clg}    *CLG
+${ds_rp_mf_mmp_team_slg}    *SLG
+${ds_rp_mf_mmp_team_nonliveteam}    NonLiveTeam
+${ds_rp_mf_mmp_team_supportteam}    Support Team
+${ds_rp_mf_mmp_team_unassignedteam}    UnassignedTeam
+${ds_rp_mf_mmp_multiplematches_1}    1
+${ds_rp_mf_mmp_multiplematches_2}    2
+${ds_rp_mf_mmp_multiplematches_3}    3
+${ds_rp_mf_mmp_multiplematches_4}    4
+${ds_rp_mf_mmp_multiplematches_5}    >=5

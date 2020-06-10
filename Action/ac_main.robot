@@ -208,6 +208,7 @@ select combobox checkbox selection
     ${ischeck}    Set Variable If    "${ischeck}"=="1"    true    false
     Wait Until Element Is Visible    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
     ${att_cbcselectiondata_aria-selected}    Selenium2Library.Get Element Attribute    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]/preceding-sibling::input    aria-selected
+    ${att_cbcselectiondata_aria-selected}    Set Variable If    "${att_cbcselectiondata_aria-selected}"=="${null}"    false    ${att_cbcselectiondata_aria-selected}
     Run Keyword Unless    "${att_cbcselectiondata_aria-selected}"=="${ischeck}"    Click Element    ${cbcselectiondata}/following-sibling::span[normalize-space(text())="${chkselection}"]
     Log    Check/Uncheck="${ischeck}" for "${chkselection}"
     Run Keyword If    "${isclose}"=="1"    Click Element    ${cbcselection}

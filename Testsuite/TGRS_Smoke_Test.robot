@@ -17,6 +17,7 @@ Resource          ../Interface/02_Reports/in_rpt_performancedetail_trader.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_grade.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_team.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_bettype.robot
+Resource          ../Interface/02_Reports/in_rpt_multiplematchesperformance_trader.robot
 
 *** Variables ***
 
@@ -754,7 +755,7 @@ TC_09_Reports_PerformanceDetail_Bettype
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
 
-TC_09_Reports_MultipleMatchesPerformance_Trader
+TC_10_Reports_MultipleMatchesPerformance_Trader
     [Documentation]    Created by: 20200605@John.Ngo
     ...    Revisions:
     ...    - 20200605@John.Ngo: Create new [RedmineId: #134230]
@@ -769,10 +770,75 @@ TC_09_Reports_MultipleMatchesPerformance_Trader
     wait loading
     select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromdate}
     select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_todate}
+    click control    ${in_rp_mmp_td_cbograde}
+    click control    ${in_rp_mmp_td_cbograde_uncheckall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_1}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_3}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_5}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_7}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_9}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_200}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_255}    1    1
+    click control    ${in_rp_mmp_td_cboteam}
+    click control    ${in_rp_mmp_td_cboteam_uncheckall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_clg}
+    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_slg}
+    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_nonliveteam}
+    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_supportteam}
+    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_unassignedteam}
+    click control    ${in_rp_mmp_td_cbobettype}
+    click control    ${in_rp_mmp_td_cbobettype_uncheckall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbobettype}    ${in_rp_mmp_td_bettypedata}    ${ds_rp_mf_bettype_1sthdp}    0
+    select combobox checkbox selection    ${in_rp_mmp_td_cbobettype}    ${in_rp_mmp_td_bettypedata}    ${ds_rp_mf_bettype_hdp}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbobettype}    ${in_rp_mmp_td_bettypedata}    ${ds_rp_mf_bettype_1stou}    0
+    select combobox checkbox selection    ${in_rp_mmp_td_cbobettype}    ${in_rp_mmp_td_bettypedata}    ${ds_rp_mf_bettype_ou}    1    1
+    click control    ${in_rp_mmp_td_cbomultiplematches}
+    click control    ${in_rp_mmp_td_cbomultiplematches_uncheckall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbomultiplematches}    ${in_rp_mmp_td_multiplematchesdata}    ${ds_rp_mf_mmp_multiplematches_1}    0
+    select combobox checkbox selection    ${in_rp_mmp_td_cbomultiplematches}    ${in_rp_mmp_td_multiplematchesdata}    ${ds_rp_mf_mmp_multiplematches_2}    0
+    select combobox checkbox selection    ${in_rp_mmp_td_cbomultiplematches}    ${in_rp_mmp_td_multiplematchesdata}    ${ds_rp_mf_mmp_multiplematches_3}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbomultiplematches}    ${in_rp_mmp_td_multiplematchesdata}    ${ds_rp_mf_mmp_multiplematches_4}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbomultiplematches}    ${in_rp_mmp_td_multiplematchesdata}    ${ds_rp_mf_mmp_multiplematches_5}    1    1
     click control    ${in_rp_mf_btngenerate}
     wait loading
     # Check internal error & exist data
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
-    check export to excel filename_fromdate_todate    ${in_rp_pd_bt_btnexporttoexcel}    Multiple_Matches_Performance_Trader    ${ds_rp_mf_mo_fromdate}    ${ds_rp_mf_mo_todate}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_mmp_td_nodata}
+    check export to excel filename_fromdate_todate    ${in_rp_mmp_td_btnexporttoexcel}    Multiple_Matches_Performance_Trader    ${ds_rp_mf_mo_fromdate}    ${ds_rp_mf_mo_todate}
+    # Select Filter
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_date}
+    wait loading
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromdate}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_todate}
+    click control    ${in_rp_mmp_td_cbograde}
+    click control    ${in_rp_mmp_td_cbograde_checkall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbograde}    ${in_rp_mmp_td_gradedata}    ${ds_rp_mf_mmp_grade_255}    1    1
+    click control    ${in_rp_mmp_td_cboteam}
+    click control    ${in_rp_mmp_td_cboteam_checkall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_unassignedteam}    1    1
+    click control    ${in_rp_mmp_td_cbobettype}
+    click control    ${in_rp_mmp_td_cbobettype_checkall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbobettype}    ${in_rp_mmp_td_bettypedata}    ${ds_rp_mf_bettype_ou}    1    1
+    click control    ${in_rp_mmp_td_cbomultiplematches}
+    click control    ${in_rp_mmp_td_cbomultiplematches_checkall}
+    select combobox checkbox selection    ${in_rp_mmp_td_cbomultiplematches}    ${in_rp_mmp_td_multiplematchesdata}    ${ds_rp_mf_mmp_multiplematches_2}    0
+    select combobox checkbox selection    ${in_rp_mmp_td_cbomultiplematches}    ${in_rp_mmp_td_multiplematchesdata}    ${ds_rp_mf_mmp_multiplematches_5}    1    1
+    click control    ${in_rp_mf_btngenerate}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_mmp_td_nodata}
+    click control    ${in_rp_mmp_td_multiplematchesperf_lnkmultiplematches}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_mmp_td_nodata}
+    click control    ${in_rp_mmp_td_multiplematchesperf_matchperf_lnkmatch}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_mmp_td_nodata}
 
 *** Keywords ***
