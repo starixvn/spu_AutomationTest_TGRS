@@ -16,6 +16,7 @@ Resource          ../Interface/02_Reports/in_rpt_performancedetail_league.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_trader.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_grade.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_team.robot
+Resource          ../Interface/02_Reports/in_rpt_performancedetail_bettype.robot
 
 *** Variables ***
 
@@ -542,5 +543,236 @@ TC_07_Reports_PerformanceDetail_Grade
     # Check internal error & exist data
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_gr_nodata}
+
+TC_08_Reports_PerformanceDetail_Team
+    [Documentation]    Created by: 20200605@John.Ngo
+    ...    Revisions:
+    ...    - 20200605@John.Ngo: Create new [RedmineId: #134230]
+    ...
+    ...    Smoke Test Performance Detail - Team
+    # Navigate to Report
+    go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_perfdetailteam}
+    # Select Filter
+    wait loading
+    select combobox single selection    ${in_rp_pd_te_cbomarket}    ${in_rp_pd_te_cbomarket}    ${ds_rp_mf_pd_market_live}
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_month}
+    wait loading
+    select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromdate}
+    select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_todate}
+    click control    ${in_rp_pd_te_cbobettype}
+    click control    ${in_rp_pd_te_cbobettype_uncheckall}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_1sthdp}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_hdp}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_1stou}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_ou}    1    1
+    click control    ${in_rp_pd_te_txtminimumturnover}
+    Input Text    ${in_rp_pd_te_txtminimumturnover}    ${ds_rp_mf_pd_minimumturnover}
+    click control    ${in_rp_pd_te_txtminimumwinloss}
+    Input Text    ${in_rp_pd_te_txtminimumwinloss}    ${ds_rp_mf_pd_minimumwinloss}
+    click control    ${in_rp_pd_te_txtmarginfrom}
+    Input Text    ${in_rp_pd_te_txtmarginfrom}    ${ds_rp_mf_pd_marginfrom}
+    click control    ${in_rp_pd_te_txtmarginto}
+    Input Text    ${in_rp_pd_te_txtmarginto}    ${ds_rp_mf_pd_marginto}
+    click control    ${in_rp_pd_te_cboteam}
+    click control    ${in_rp_pd_te_cboteam_uncheckall}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_clg}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_supportteam}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_nonliveteam}
+    wait loading
+    click control    ${in_rp_mf_btngenerate}
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    check export to excel filename_fromdate_todate    ${in_rp_pd_te_btnexporttoexcel}    Performance_Detail_Team    ${ds_rp_mf_mo_fromdate}    ${ds_rp_mf_mo_todate}
+    # Select Filter
+    wait loading
+    select combobox single selection    ${in_rp_pd_te_cbomarket}    ${in_rp_pd_te_cbomarket}    ${ds_rp_mf_pd_market_all}
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_date}
+    wait loading
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromdate}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_todate}
+    click control    ${in_rp_pd_te_cbobettype}
+    click control    ${in_rp_pd_te_cbobettype_checkall}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_1sthdp}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_hdp}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_1stou}
+    select combobox checkbox selection    ${in_rp_pd_te_cbobettype}    ${in_rp_pd_te_bettypedata}    ${ds_rp_mf_bettype_ou}    1    1
+    click control    ${in_rp_pd_te_txtminimumturnover}
+    Clear Element Text    ${in_rp_pd_te_txtminimumturnover}
+    click control    ${in_rp_pd_te_txtminimumwinloss}
+    Clear Element Text    ${in_rp_pd_te_txtminimumwinloss}
+    click control    ${in_rp_pd_te_txtmarginfrom}
+    Clear Element Text    ${in_rp_pd_te_txtmarginfrom}
+    click control    ${in_rp_pd_te_txtmarginto}
+    Clear Element Text    ${in_rp_pd_te_txtmarginto}
+    click control    ${in_rp_pd_te_cboteam}
+    click control    ${in_rp_pd_te_cboteam_checkall}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_clg}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_supportteam}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_nonliveteam}
+    wait loading
+    click control    ${in_rp_mf_btngenerate}
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    click control    ${in_rp_pd_te_teamperf_live_lnknooftraders}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    click control    ${in_rp_pd_te_teamperf_traderperf_lnknoofmatches}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    click control    ${in_rp_pd_te_teamperf_traderperf_matchperf_lnkmatch}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    click control    ${in_rp_pd_te_breakcrumb_teamperf}
+    click control    ${in_rp_pd_te_teamperf_live_lnknoofleagues}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    click control    ${in_rp_pd_te_teamperf_leagueperf_lnknooftraders}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    click control    ${in_rp_pd_te_teamperf_leagueperf_traderperf_lnknoofmatches}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+    click control    ${in_rp_pd_te_teamperf_leagueperf_traderperf_matchperf_lnkmatch}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_te_nodata}
+
+TC_09_Reports_PerformanceDetail_Bettype
+    [Documentation]    Created by: 20200605@John.Ngo
+    ...    Revisions:
+    ...    - 20200605@John.Ngo: Create new [RedmineId: #134230]
+    ...
+    ...    Smoke Test Performance Detail - BetType
+    # Navigate to Report
+    go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_perfdetailbettype}
+    # Select Filter
+    wait loading
+    select combobox single selection    ${in_rp_pd_bt_cbomarket}    ${in_rp_pd_bt_cbomarket}    ${ds_rp_mf_pd_market_live}
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_month}
+    wait loading
+    select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromdate}
+    select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_todate}
+    click control    ${in_rp_pd_bt_cbobettype}
+    click control    ${in_rp_pd_bt_cbobettype_uncheckall}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_1sthdp}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_hdp}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_1stou}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_ou}    1    1
+    click control    ${in_rp_pd_bt_txtminimumturnover}
+    Input Text    ${in_rp_pd_bt_txtminimumturnover}    ${ds_rp_mf_pd_minimumturnover}
+    click control    ${in_rp_pd_bt_txtminimumwinloss}
+    Input Text    ${in_rp_pd_bt_txtminimumwinloss}    ${ds_rp_mf_pd_minimumwinloss}
+    click control    ${in_rp_pd_bt_txtmarginfrom}
+    Input Text    ${in_rp_pd_bt_txtmarginfrom}    ${ds_rp_mf_pd_marginfrom}
+    click control    ${in_rp_pd_bt_txtmarginto}
+    Input Text    ${in_rp_pd_bt_txtmarginto}    ${ds_rp_mf_pd_marginto}
+    click control    ${in_rp_mf_btngenerate}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+    check export to excel filename_fromdate_todate    ${in_rp_pd_bt_btnexporttoexcel}    Performance_Detail_BetType    ${ds_rp_mf_mo_fromdate}    ${ds_rp_mf_mo_todate}
+    # Select Filter
+    wait loading
+    select combobox single selection    ${in_rp_pd_bt_cbomarket}    ${in_rp_pd_bt_cbomarket}    ${ds_rp_mf_pd_market_all}
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_date}
+    wait loading
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromdate}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_todate}
+    click control    ${in_rp_pd_bt_cbobettype}
+    click control    ${in_rp_pd_bt_cbobettype_checkall}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_1sthdp}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_hdp}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_1stou}
+    select combobox checkbox selection    ${in_rp_pd_bt_cbobettype}    ${in_rp_pd_bt_bettypedata}    ${ds_rp_mf_bettype_ou}    1    1
+    click control    ${in_rp_pd_bt_txtminimumturnover}
+    Clear Element Text    ${in_rp_pd_bt_txtminimumturnover}
+    click control    ${in_rp_pd_bt_txtminimumwinloss}
+    Clear Element Text    ${in_rp_pd_bt_txtminimumwinloss}
+    click control    ${in_rp_pd_bt_txtmarginfrom}
+    Clear Element Text    ${in_rp_pd_bt_txtmarginfrom}
+    click control    ${in_rp_pd_bt_txtmarginto}
+    Clear Element Text    ${in_rp_pd_bt_txtmarginto}
+    click control    ${in_rp_mf_btngenerate}
+    wait loading
+    click control    ${in_rp_pd_bt_bettypeperf_live_lnkmarket}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+    click control    ${in_rp_pd_bt_breakcrumb_bettypeperf}
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+    click control    ${in_rp_pd_bt_bettypeperf_lnknooftraders}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+    click control    ${in_rp_pd_bt_bettypeperf_traderperf_lnknoofmatches}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+    click control    ${in_rp_pd_bt_breakcrumb_bettypeperf}
+    click control    ${in_rp_pd_bt_bettypeperf_lnknoofleagues}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+    click control    ${in_rp_pd_bt_bettypeperf_leagueperf_lnknooftraders}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+    click control    ${in_rp_pd_bt_bettypeperf_leagueperf_traderperf_lnknoofmatches}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_pd_bt_nodata}
+
+TC_09_Reports_MultipleMatchesPerformance_Trader
+    [Documentation]    Created by: 20200605@John.Ngo
+    ...    Revisions:
+    ...    - 20200605@John.Ngo: Create new [RedmineId: #134230]
+    ...
+    ...    Smoke Test Performance Detail - BetType
+    # Navigate to Report
+    go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_multiplematchesperftrader}
+    # Select Filter
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_month}
+    wait loading
+    select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromdate}
+    select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_todate}
+    click control    ${in_rp_mf_btngenerate}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    check export to excel filename_fromdate_todate    ${in_rp_pd_bt_btnexporttoexcel}    Multiple_Matches_Performance_Trader    ${ds_rp_mf_mo_fromdate}    ${ds_rp_mf_mo_todate}
 
 *** Keywords ***

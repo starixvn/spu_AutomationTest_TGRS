@@ -146,6 +146,14 @@ go to url
     sleep    1
 
 convert string to number
+    [Arguments]    ${string}
+    [Documentation]    Convert and remove the comma from string to number
+    ${number}    Set Variable    ${string}
+    ${number}    Remove String    ${number}    ,
+    ${number}    Convert To Number    ${number}
+    [Return]    ${number}
+
+convert string to number with locator
     [Arguments]    ${locator}
     [Documentation]    Convert and remove the comma from string to number
     ${number}    Get Text    ${locator}

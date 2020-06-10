@@ -1,79 +1,77 @@
-#!/usr/bin/python
-# encoding: utf-8
+import pandas
+from bs4 import BeautifulSoup
 
-import BeautifulSoup as bs
-import types
-import re
-from numpy import *
 
 class HtmlParser(object):
-    '''
+    """
     Class to support parse html content
-    '''
+	Install from cmd:
+        pip install pandas
+        pip install beautifulsoup4
+    """
+
+    # ----------------- Private methods -------------------
     def __init__(self):
-        self._content = None
+        self.__raw__ = None
 
-    def _parse_eval(self, val):
-        if type(val) == types.UnicodeType:
-            string = val.replace('''\n''',' ').strip()
-            return re.sub(' +',' ', string)
-        if type(val) == types.StringType: return re.sub(' +',' ', val.replace('''\n''',' ').strip())
-        if type(val) == types.LongType: return str(val)
-        if type(val) == types.IntType: return int(val)
-        if type(val) == types.FloatType: return float(val)
-        if type(val) == types.BooleanType: return bool(val)
-        if type(val) == types.NoneType: return ''
-        else: return val
-
-    def _fillna(self, data):
-        '''
-        Fill missing cell in table
-        '''
-        lens = array([len(i) for i in data])
-        for r in array(data):
-            if len(r) < lens.max():
-                r.extend(full(lens.max()-len(r), ''))
-        return data
-
-################## Public methods #####################
+    # ----------------- Public methods -------------------
+    @staticmethod
+    def get_childs(htmlParser_, tagname):
+        """
+        Return a list of child element base on expected tagname
+        @param htmlParser_: html parser to find
+        @param tagname: tagname to get
+        @return: list of childs
+        """
+        return htmlParser_.__raw__.findAll(tagname)
 
     @staticmethod
     def parse_table(htmlParser_):
-        '''
-        Parse a table content from a table list. Need the htmlParser source and index of table to parse
-        '''
-        tmpData = []
-        for row in htmlParser_._content.findAll('tr'):
-            tmpRow = []
-            for cell in row.findAll('td'):
-                tmpCellVal = ''.join([unicode(s) for s in cell.findAll(text=True)])
-                tmpRow.append(htmlParser_._parse_eval(tmpCellVal))
-            tmpData.append(tmpRow)
-        return htmlParser_._fillna(tmpData)
+        """
+        Parse a table from htmlparser object
+        @return: a list dict virtualize the parsed table
+        """
+        # Parse header
+        tmp_header = []
+        for elem in htmlParser_.__raw__.findAll('th'):
+            head = ''.join([str(s) for s in elem.findAll(text=True)])
+            head = head.replace('\n', '').replace('\t', '').strip()
+            tmp_header.append(head)
 
-    @staticmethod
-    def parse_table_header(htmlParser_):
-        '''
-        Parse a table header list from a table list. Need the htmlParser source and index of table to parse
-        '''
-        tmpheader = []
-        for elem in htmlParser_._content.findAll('th'):
-            tmpheader.append(htmlParser_._parse_eval(''.join([unicode(s) for s in elem.findAll(text=True)])))
-        return tmpheader
+        # Parse content
+        tmp_table = []
+        for row in htmlParser_.__raw__.findAll('tr'):
+            tmp_row = []
+            for cell in row.findAll('td'):
+                tmp_cell_val = ''.join([str(s) for s in cell.findAll(text=True)])
+                tmp_cell_val = tmp_cell_val.replace('\n', '').replace('\t', '')
+                tmp_row.append(tmp_cell_val)
+            if tmp_row:
+                diff = len(tmp_header) - len(tmp_row)
+                if diff > 0:
+                    tmp_row.extend([None] * diff)
+                tmp_table.append(tmp_row)
+        if tmp_header:
+            return pandas.DataFrame(tmp_table, columns=tmp_header).to_dict('records')
+        return pandas.DataFrame(tmp_table).to_dict('records')
 
     @staticmethod
     def get_html_file_content(filepath):
-        '''
+        """
         Return a htmlParser object which holds html content from a html or text file
-        '''
+        @param filepath: path to html file
+        @return: self
+        """
         with open(filepath) as fp:
             return HtmlParser.get_html_content(fp)
 
     @staticmethod
     def get_html_content(text):
-        '''
+        """
         Return a htmlParser object from a block of html text
-        '''
+        @param text: block of html content to format
+        @return: self
+        """
         new_iParser = HtmlParser()
-        new_iParser._content = bs.BeautifulSoup(text)
+        new_iParser.__raw__ = BeautifulSoup(text, 'html.parser')
         return new_iParser

@@ -10,8 +10,10 @@ ${in_rp_pd_te_btnexporttoexcel}    //*[@class="btnExcel" and @title='Export to E
 ${in_rp_pd_te_txtmarginfrom}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[1]/input
 ${in_rp_pd_te_txtmarginto}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[2]/input
 ${in_rp_pd_te_cboteam}    //*[@id='ddlTeam']/following-sibling::*//span[2]
-${in_rp_pd_te_nodata}    //div[@class='content-container']//following-sibling::*//div[normalize-space(text())='There is no data']
 ${in_rp_pd_te_teamdata}    //*[@name='multiselect_ddlTeam']
+${in_rp_pd_te_cboteam_checkall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Check all')]
+${in_rp_pd_te_cboteam_uncheckall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Uncheck all')]
+${in_rp_pd_te_nodata}    //div[@class='content-container']//following-sibling::*//div[normalize-space(text())='There is no data']
 ${in_rp_pd_te_teamperf_live_lnknooftraders}    //*[@id='tblContent_divTeamPerformanceGrid']//tr[(preceding-sibling::*[td/div[text()='Live']])][1]//span[contains(@class,'trader-link link')]    # //*[@id='tblContent_divTeamPerformanceGrid']//tr[(preceding-sibling::*[td/div[text()='Live']]) and (following-sibling::*[td/div[text()='Non-Live']])][1]//span[contains(@class,'trader-link link')]
 ${in_rp_pd_te_teamperf_nonlive_lnknooftraders}    //*[@id='tblContent_divTeamPerformanceGrid']//tr[(preceding-sibling::*[td/div[text()='Non-Live']])]//following-sibling::*[1]//span[contains(@class,'trader-link link')]
 ${in_rp_pd_te_teamperf_traderperf_lnknoofmatches}    //*[@id='tblContent_divTraderPerformanceGrid']//tbody/tr[1]//span[contains(@class,'match-link link')]
@@ -22,5 +24,3 @@ ${in_rp_pd_te_teamperf_nonlive_lnknoofleagues}    //*[@id='tblContent_divTeamPer
 ${in_rp_pd_te_teamperf_leagueperf_lnknooftraders}    //*[@id='tblContent_divLeagueDetailGrid']//tbody/tr[1]//span[contains(@class,'trader-link link')]
 ${in_rp_pd_te_teamperf_leagueperf_traderperf_lnknoofmatches}    //*[@id='tblContent_divTraderPerformanceGrid']/tbody/tr[1]//span[contains(@class,'match-link link')]
 ${in_rp_pd_te_teamperf_leagueperf_traderperf_matchperf_lnkmatch}    //*[@id='tblContent_divMatchPerformanceGrid']/tbody/tr[1]//span[contains(@class,'bettype-detail-link link')]
-${in_rp_pd_te_cboteam_checkall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Check all')]
-${in_rp_pd_te_cboteam_uncheckall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Uncheck all')]
