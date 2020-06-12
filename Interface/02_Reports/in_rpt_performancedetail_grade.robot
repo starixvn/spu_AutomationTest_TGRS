@@ -6,7 +6,7 @@ ${in_rp_pd_gr_cbobettype_checkall}    //div[contains(@style,'display: block')]//
 ${in_rp_pd_gr_cbobettype_uncheckall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Uncheck all')]
 ${in_rp_pd_gr_txtminimumturnover}    //*[label[normalize-space(text())='Minimum Turnover']]//following-sibling::*[1]//input
 ${in_rp_pd_gr_txtminimumwinloss}    //*[label[normalize-space(text())='Minimum Win Loss']]//following-sibling::*[1]//input
-${in_rp_pd_gr_btnexporttoexcel}    //*[@class="btnExcel" and @title='Export to Excel']
+${in_rp_pd_gr_btnexporttoexcel}    //*[@class='filter-bar']/following-sibling::*[not(contains(@class,'display-none'))]//*[@class="btnExcel" and @title='Export to Excel']
 ${in_rp_pd_gr_txtmarginfrom}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[1]/input
 ${in_rp_pd_gr_txtmarginto}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[2]/input
 ${in_rp_pd_gr_nodata}    //div[@class='content-container']//following-sibling::*//div[normalize-space(text())='There is no data']

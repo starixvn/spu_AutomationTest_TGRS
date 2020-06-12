@@ -22,5 +22,5 @@ ${in_rp_bm_cbccolumns_september}    //input[@name='multiselect_idColumns' and @t
 ${in_rp_bm_cbccolumns_october}    //input[@name='multiselect_idColumns' and @title='October']
 ${in_rp_bm_cbccolumns_november}    //input[@name='multiselect_idColumns' and @title='November']
 ${in_rp_bm_cbccolumns_december}    //input[@name='multiselect_idColumns' and @title='December']
-${in_rp_bm_btnexporttoexcel}    //*[@class="btnExcel" and @title='Export to Excel']
+${in_rp_bm_btnexporttoexcel}    //*[@class='filter-bar']/following-sibling::*[not(contains(@class,'display-none'))]//*[@class="btnExcel" and @title='Export to Excel']
 ${in_rp_bm_nodata}    //div[@class='content-container']//following-sibling::*//div[normalize-space(text())='There is no data']

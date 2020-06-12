@@ -15,7 +15,7 @@ ${in_rp_mmp_td_cbomultiplematches}    //*[@id='ddlMultipleMatches']/following-si
 ${in_rp_mmp_td_multiplematchesdata}    //*[@name='multiselect_ddlMultipleMatches']
 ${in_rp_mmp_td_cbomultiplematches_checkall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Check all')]
 ${in_rp_mmp_td_cbomultiplematches_uncheckall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Uncheck all')]
-${in_rp_mmp_td_btnexporttoexcel}    //*[@class="btnExcel" and @title='Export to Excel']
+${in_rp_mmp_td_btnexporttoexcel}    //*[@class='filter-bar']/following-sibling::*[not(contains(@class,'display-none'))]//*[@class="btnExcel" and @title='Export to Excel']
 ${in_rp_mmp_td_nodata}    //div[@class='content-container']//following-sibling::*//div[normalize-space(text())='There is no data']
 ${in_rp_mmp_td_breakcrumb_multiplematchesperf}    //*[@class='filter-bar']/following-sibling::*[not(contains(@class,'display-none'))]//*[@id='reporttile']/span[1]
 ${in_rp_mmp_td_multiplematchesperf_lnkmultiplematches}    //*[@id='tblContent_divTraderPerformanceGrid']//tr[@data-row-index='0']//span[contains(@class,'match-link link')]

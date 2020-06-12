@@ -11,5 +11,5 @@ ${in_rp_tm_gradedata}    //*[@name='multiselect_gradeSelector']
 ${in_rp_tm_txttrader}    //*[label[normalize-space(text())='Trader']]//following-sibling::*//input
 ${in_rp_tm_columnsdata}    //*[@name='multiselect_idColumns']
 ${in_rp_tm_cbccolumns}    //*[@id='idColumns']/following-sibling::*//span[2]
-${in_rp_tm_btnexporttoexcel}    //*[@class="btnExcel" and @title='Export to Excel']
+${in_rp_tm_btnexporttoexcel}    //*[@class='filter-bar']/following-sibling::*[not(contains(@class,'display-none'))]//*[@class="btnExcel" and @title='Export to Excel']
 ${in_rp_tm_nodata}    //div[@class='content-container']//following-sibling::*//div[normalize-space(text())='There is no data']

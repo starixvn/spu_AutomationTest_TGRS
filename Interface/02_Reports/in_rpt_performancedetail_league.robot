@@ -6,7 +6,7 @@ ${in_rp_pd_lg_cbobettype_checkall}    //div[contains(@style,'display: block')]//
 ${in_rp_pd_lg_cbobettype_uncheckall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Uncheck all')]
 ${in_rp_pd_lg_txtminimumturnover}    //*[label[normalize-space(text())='Minimum Turnover']]//following-sibling::*[1]//input
 ${in_rp_pd_lg_txtminimumwinloss}    //*[label[normalize-space(text())='Minimum Win Loss']]//following-sibling::*[1]//input
-${in_rp_pd_lg_btnexporttoexcel}    //*[@class="btnExcel" and @title='Export to Excel']
+${in_rp_pd_lg_btnexporttoexcel}    //*[@class='filter-bar']/following-sibling::*[not(contains(@class,'display-none'))]//*[@class="btnExcel" and @title='Export to Excel']
 ${in_rp_pd_lg_txtmarginfrom}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[1]/input
 ${in_rp_pd_lg_txtmarginto}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[2]/input
 ${in_rp_pd_lg_txtleague}    //*[label[normalize-space(text())='League']]//following-sibling::*[1]//input

@@ -580,7 +580,7 @@ TC_08_Reports_PerformanceDetail_Team
     click control    ${in_rp_pd_te_cboteam_uncheckall}
     select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_clg}
     select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_supportteam}
-    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_nonliveteam}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_nonliveteam}    1    1
     wait loading
     click control    ${in_rp_mf_btngenerate}
     # Check internal error & exist data
@@ -614,7 +614,7 @@ TC_08_Reports_PerformanceDetail_Team
     click control    ${in_rp_pd_te_cboteam_checkall}
     select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_clg}
     select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_supportteam}
-    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_nonliveteam}
+    select combobox checkbox selection    ${in_rp_pd_te_cboteam}    ${in_rp_pd_te_teamdata}    ${ds_rp_mf_pd_team_nonliveteam}    1    1
     wait loading
     click control    ${in_rp_mf_btngenerate}
     # Check internal error & exist data
@@ -785,7 +785,7 @@ TC_10_Reports_MultipleMatchesPerformance_Trader
     select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_slg}
     select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_nonliveteam}
     select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_supportteam}
-    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_unassignedteam}
+    select combobox checkbox selection    ${in_rp_mmp_td_cboteam}    ${in_rp_mmp_td_teamdata}    ${ds_rp_mf_mmp_team_unassignedteam}    1    1
     click control    ${in_rp_mmp_td_cbobettype}
     click control    ${in_rp_mmp_td_cbobettype_uncheckall}
     select combobox checkbox selection    ${in_rp_mmp_td_cbobettype}    ${in_rp_mmp_td_bettypedata}    ${ds_rp_mf_bettype_1sthdp}    0

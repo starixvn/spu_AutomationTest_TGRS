@@ -61,3 +61,24 @@ ${ds_rp_mf_mmp_multiplematches_2}    2
 ${ds_rp_mf_mmp_multiplematches_3}    3
 ${ds_rp_mf_mmp_multiplematches_4}    4
 ${ds_rp_mf_mmp_multiplematches_5}    >=5
+${ds_rp_mf_atp_td_model_ta}    TA
+${ds_rp_mf_atp_td_model_rt3}    RT3
+${ds_rp_mf_atp_td_leaguegroup_mj}    MJ
+${ds_rp_mf_atp_td_leaguegroup_m2}    M2
+${ds_rp_mf_atp_td_leaguegroup_m4}    M4
+${ds_rp_mf_atp_td_leaguegroup_others1}    Others 1
+${ds_rp_mf_atp_td_leaguegroup_others3}    Others 3
+${ds_rp_mf_atp_td_leaguegroup_others5}    Others 5
+${ds_rp_mf_atp_td_site_nova}    Nova
+${ds_rp_mf_atp_td_site_cash}    Cash
+${ds_rp_mf_atp_td_site_cn88}    CN88
+${ds_rp_mf_atp_td_measurement_virtualturnover}    Virtual Turnover
+${ds_rp_mf_atp_td_measurement_virtualwinloss}    Virtual Win Loss
+${ds_rp_mf_atp_td_measurement_varianceturnover}    Variance Turnover
+${ds_rp_mf_atp_td_measurement_variancewinloss}    Variance Win Loss
+${ds_rp_mf_atp_td_measurement_realturnover}    Real Turnover
+${ds_rp_mf_atp_td_measurement_realwinloss}    Real Win Loss
+${ds_rp_mf_atp_td_measurement_8rmturnover}    8RM Turnover
+${ds_rp_mf_atp_td_measurement_8rmwinloss}    8RM Win Loss
+${ds_rp_mf_atp_td_measurement_realex8rmturnover}    Real ex.8RM Turnover
+${ds_rp_mf_atp_td_measurement_realex8rmwinloss}    Real ex. 8RM Win Loss

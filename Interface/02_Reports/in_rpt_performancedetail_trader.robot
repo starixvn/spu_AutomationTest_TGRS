@@ -6,7 +6,7 @@ ${in_rp_pd_td_cbobettype_checkall}    //div[contains(@style,'display: block')]//
 ${in_rp_pd_td_cbobettype_uncheckall}    //div[contains(@style,'display: block')]//div[@class='ui-multiselect-filter']/following-sibling::*//span[contains(text(),'Uncheck all')]
 ${in_rp_pd_td_txtminimumturnover}    //*[label[normalize-space(text())='Minimum Turnover']]//following-sibling::*[1]//input
 ${in_rp_pd_td_txtminimumwinloss}    //*[label[normalize-space(text())='Minimum Win Loss']]//following-sibling::*[1]//input
-${in_rp_pd_td_btnexporttoexcel}    //*[@class="btnExcel" and @title='Export to Excel']
+${in_rp_pd_td_btnexporttoexcel}    //*[@class='filter-bar']/following-sibling::*[not(contains(@class,'display-none'))]//*[@class="btnExcel" and @title='Export to Excel']
 ${in_rp_pd_td_txtmarginfrom}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[1]/input
 ${in_rp_pd_td_txtmarginto}    //*[label[normalize-space(text())='Margin %']]/following-sibling::*/div[2]/input
 ${in_rp_pd_td_txttrader}    //*[label[normalize-space(text())='Trader']]//following-sibling::*[1]//input
