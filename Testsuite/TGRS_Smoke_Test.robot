@@ -18,6 +18,7 @@ Resource          ../Interface/02_Reports/in_rpt_performancedetail_grade.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_team.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_bettype.robot
 Resource          ../Interface/02_Reports/in_rpt_multiplematchesperformance_trader.robot
+Resource          ../Interface/02_Reports/in_rpt_automationtradingperformance_bettype.robot
 
 *** Variables ***
 
@@ -840,5 +841,133 @@ TC_10_Reports_MultipleMatchesPerformance_Trader
     # Check internal error & exist data
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
     Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_mmp_td_nodata}
+
+TC_11_Reports_AutomationTradingPerformance_Bettype
+    [Documentation]    Created by: 20200605@John.Ngo
+    ...    Revisions:
+    ...    - 20200605@John.Ngo: Create new [RedmineId: #134230]
+    ...
+    ...    Smoke Test Performance Detail - BetType
+    # Navigate to Report
+    go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_automationtradingperfbettype}
+    # Select Filter
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_month}
+    wait loading
+    select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromdate}
+    select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_todate}
+    select combobox single selection    ${in_rp_atp_bt_cbomodel}    ${in_rp_atp_bt_modeldata}    ${ds_rp_mf_atp_model_rt3}
+    click control    ${in_rp_atp_bt_cboleaguegroup}
+    click control    ${in_rp_atp_bt_cboleaguegroup_uncheckall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_mj}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_m2}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_m4}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_others1}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_others3}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_others5}    1    1
+    click control    ${in_rp_atp_bt_cbosite}
+    click control    ${in_rp_atp_bt_cbosite_uncheckall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbosite}    ${in_rp_atp_bt_sitedata}    ${ds_rp_mf_atp_site_nova}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbosite}    ${in_rp_atp_bt_sitedata}    ${ds_rp_mf_atp_site_cash}    1    1
+    click control    ${in_rp_atp_bt_cbomeasurement}
+    click control    ${in_rp_atp_bt_cbomeasurement_uncheckall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_virtualturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_virtualwinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_varianceturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_variancewinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realwinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_8rmturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_8rmwinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realex8rmturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realex8rmwinloss}    1    1
+    click control    ${in_rp_mf_btngenerate}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_atp_bt_nodata}
+    # Select Filter
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_date}
+    wait loading
+    select date    ${in_rp_mf_dt_selectfromdate}    ${ds_rp_mf_dt_fromdate}
+    select date    ${in_rp_mf_dt_selecttodate}    ${ds_rp_mf_dt_todate}
+    select combobox single selection    ${in_rp_atp_bt_cbomodel}    ${in_rp_atp_bt_modeldata}    ${ds_rp_mf_atp_model_ta}
+    click control    ${in_rp_atp_bt_cboleaguegroup}
+    click control    ${in_rp_atp_bt_cboleaguegroup_checkall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_others5}    1    1
+    click control    ${in_rp_atp_bt_cbosite}
+    click control    ${in_rp_atp_bt_cbosite_checkall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbosite}    ${in_rp_atp_bt_sitedata}    ${ds_rp_mf_atp_site_cash}    1    1
+    click control    ${in_rp_atp_bt_cbomeasurement}
+    click control    ${in_rp_atp_bt_cbomeasurement_checkall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realex8rmwinloss}    1    1
+    click control    ${in_rp_mf_btngenerate}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_atp_bt_nodata}
+    check export to excel filename_fromdate_todate    ${in_rp_atp_bt_btnexporttoexcel}    Automation_Trading_Performance_BetType    ${ds_rp_mf_dt_fromdate}    ${ds_rp_mf_dt_todate}
+    click control    ${in_rp_atp_bt_bettypeperf_lnkleague}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_atp_bt_nodata}
+    check export to excel filename_fromdate_todate    ${in_rp_atp_bt_btnexporttoexcel}    Automation_Trading_Performance_League    ${ds_rp_mf_dt_fromdate}    ${ds_rp_mf_dt_todate}
+    click control    ${in_rp_atp_bt_bettypeperf_leagueperf_lnkmatch}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_atp_bt_nodata}
+    check export to excel filename_fromdate_todate    ${in_rp_atp_bt_btnexporttoexcel}    Automation_Trading_Performance_Match    ${ds_rp_mf_dt_fromdate}    ${ds_rp_mf_dt_todate}
+    click control    ${in_rp_atp_bt_breakcrumb_bettypeperf}
+
+TC_12_Reports_AutomationTradingPerformance_Period
+    [Documentation]    Created by: 20200605@John.Ngo
+    ...    Revisions:
+    ...    - 20200605@John.Ngo: Create new [RedmineId: #134230]
+    ...
+    ...    Smoke Test Performance Detail - BetType
+    # Navigate to Report
+    go to url    ${ds_lg_url}    ${ds_lg_env}    ${ds_rp_automationtradingperfperiod}
+    # Select Filter
+    wait loading
+    click control    ${in_rp_mf_periodtype}
+    click control    ${in_rp_mf_periodtype_month}
+    wait loading
+    select month    ${in_rp_mf_mo_selectfrommonth}    ${ds_rp_mf_mo_fromdate}
+    select month    ${in_rp_mf_mo_selecttomonth}    ${ds_rp_mf_mo_todate}
+    select combobox single selection    ${in_rp_atp_bt_cbomodel}    ${in_rp_atp_bt_modeldata}    ${ds_rp_mf_atp_model_rt3}
+    click control    ${in_rp_atp_bt_cboleaguegroup}
+    click control    ${in_rp_atp_bt_cboleaguegroup_uncheckall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_mj}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_m2}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_m4}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_others1}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_others3}
+    select combobox checkbox selection    ${in_rp_atp_bt_cboleaguegroup}    ${in_rp_atp_bt_leaguegroupdata}    ${ds_rp_mf_atp_leaguegroup_others5}    1    1
+    click control    ${in_rp_atp_bt_cbosite}
+    click control    ${in_rp_atp_bt_cbosite_uncheckall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbosite}    ${in_rp_atp_bt_sitedata}    ${ds_rp_mf_atp_site_nova}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbosite}    ${in_rp_atp_bt_sitedata}    ${ds_rp_mf_atp_site_cash}    1    1
+    click control    ${in_rp_atp_bt_cbomeasurement}
+    click control    ${in_rp_atp_bt_cbomeasurement_uncheckall}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_virtualturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_virtualwinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_varianceturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_variancewinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realwinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_8rmturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_8rmwinloss}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realex8rmturnover}
+    select combobox checkbox selection    ${in_rp_atp_bt_cbomeasurement}    ${in_rp_atp_bt_measurementdata}    ${ds_rp_mf_atp_measurement_realex8rmwinloss}    1    1
+    click control    ${in_rp_mf_btngenerate}
+    wait loading
+    # Check internal error & exist data
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_hp_msginternalerror}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_rp_atp_bt_nodata}
 
 *** Keywords ***
