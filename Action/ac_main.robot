@@ -140,9 +140,10 @@ go to url
     [Arguments]    ${domain}    ${env_path}    ${menu_path}
     sleep    1
     ${domain}    Set Variable    ${ds_lg_url}
-    ${env_path}    Set Variable If    "${ds_lg_env}" == "pro"    NAPTGR    Main
+    #${env_path}    Set Variable If    "${ds_lg_env}" == "pro"    /NAPTGR/    /Main/
+    ${env_path}    Set Variable If    "${ds_lg_env}" == "pro"    /    /Main/
     ${menu_path}    Set Variable    ${menu_path}
-    Go To    ${domain}/${env_path}/${menu_path}
+    Go To    ${domain}${env_path}${menu_path}
     sleep    1
 
 convert string to number
