@@ -35,7 +35,7 @@ TC_00_Login_System
     #Open Browser    ${EMPTY}    ${ds_lg_browser}    ff_profile_dir=${ff_profile_dir}
     Open Browser In Chrome    about:blank    ${ff_profile_dir}    chrome    ${False}
     go to url    ${ds_lg_url}    ${ds_lg_env}    ${EMPTY}
-    Comment    Maximize Browser Window
+    Maximize Browser Window
     # Login
     login    ${ds_lg_username}    ${ds_lg_password}
 

@@ -130,7 +130,7 @@ click control
     wait loading
 
 wait loading
-    [Arguments]    ${timeout}=45
+    [Arguments]    ${timeout}=60
     ${visible_block_ui}    Is Element Visible    ${in_hp_block_ui}    0
     Run Keyword If    ${visible_block_ui}    Wait Until Element Is Not Visible    ${in_hp_block_ui}    ${timeout}
     ${visible_loading_ui}    Is Element Visible    ${in_hp_loading_ui}    0
