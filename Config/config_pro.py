@@ -1,5 +1,5 @@
 ds_lg_browser="gc"
 ds_lg_username="starix58"
-ds_lg_password="julien1234"
-ds_lg_url="http://nap4.oneops.net"
+ds_lg_password="Q1w2e3r4t"
+ds_lg_url="https://tgrs.oneops.net"
 ds_lg_env="pro"
