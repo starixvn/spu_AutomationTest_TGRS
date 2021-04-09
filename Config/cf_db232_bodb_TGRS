@@ -1,0 +1,7 @@
+dbServer=10.18.200.232
+dbPort=1433
+dbUser=testteam
+dbPassword=@quality#
+dbDataBase=bodb_TGRS
+dbQueryTimeout=0
+dbLoginTimeout=60

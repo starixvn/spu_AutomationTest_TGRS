@@ -19,6 +19,8 @@ Resource          ../Interface/02_Reports/in_rpt_performancedetail_team.robot
 Resource          ../Interface/02_Reports/in_rpt_performancedetail_bettype.robot
 Resource          ../Interface/02_Reports/in_rpt_multiplematchesperformance_trader.robot
 Resource          ../Interface/02_Reports/in_rpt_automationtradingperformance_bettype.robot
+Library           ../Libs/ExcelExtendLibrary.py
+Library           ../Libs/DBLibrary.py
 
 *** Variables ***
 
